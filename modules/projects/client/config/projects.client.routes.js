@@ -16,7 +16,7 @@
 		// -------------------------------------------------------------------------
 		.state('projects', {
 			abstract: true,
-			url: '/{lang}/projects',
+			url: '/{lang:(?:en|fr)}/projects',
 			template: '<ui-view/>',
 	        params: {
 	        	lang: {
@@ -84,7 +84,7 @@
 		// -------------------------------------------------------------------------
 		.state('projectadmin', {
 			abstract: true,
-			url: '/{lang}/projectadmin',
+			url: '/{lang:(?:en|fr)}/projectadmin',
 			template: '<ui-view/>',
 	        params: {
 	        	lang: {

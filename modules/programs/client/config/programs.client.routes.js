@@ -16,7 +16,7 @@
 		// -------------------------------------------------------------------------
 		.state('programs', {
 			abstract: true,
-			url: '/{lang}/teams',
+			url: '/{lang:(?:en|fr)}/teams',
 			template: '<ui-view/>',
 	        params: {
 	        	lang: {
@@ -81,7 +81,7 @@
 		// -------------------------------------------------------------------------
 		.state('programadmin', {
 			abstract: true,
-			url: '/{lang}/programadmin',
+			url: '/{lang:(?:en|fr)}/programadmin',
 			template: '<ui-view/>',
 	        params: {
 	        	lang: {

@@ -16,7 +16,7 @@
 		// -------------------------------------------------------------------------
 		.state('proposals', {
 			abstract: true,
-			url: '/{lang}/proposals',
+			url: '/{lang:(?:en|fr)}/proposals',
 			template: '<ui-view/>',
 			resolve: {
 				capabilities: function (SkillsService) {
@@ -84,7 +84,7 @@
 		// -------------------------------------------------------------------------
 		.state('proposaladmin', {
 			abstract: true,
-			url: '/{lang}/proposaladmin',
+			url: '/{lang:(?:en|fr)}/proposaladmin',
 			template: '<ui-view/>',
 			data: {
 				notroles: ['gov', 'guest']

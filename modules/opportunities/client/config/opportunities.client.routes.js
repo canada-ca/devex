@@ -16,7 +16,7 @@
 		// -------------------------------------------------------------------------
 		.state('opportunities', {
 			abstract: true,
-			url: '/{lang}/opportunities',
+			url: '/{lang:(?:en|fr)}/opportunities',
 			template: '<ui-view/>',
 			resolve: {
 				capabilities: function (SkillsService) {
@@ -102,7 +102,7 @@
 		// -------------------------------------------------------------------------
 		.state('opportunityadmin', {
 			abstract: true,
-			url: '/{lang}/opportunityadmin',
+			url: '/{lang:(?:en|fr)}/opportunityadmin',
 			template: '<ui-view/>',
 			resolve: {
 				capabilities: function (SkillsService) {
