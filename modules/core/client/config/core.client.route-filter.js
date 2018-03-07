@@ -63,7 +63,7 @@
 			var currentLang = '';
 			var otherLang = '';
 
-			console.log('xxx' + $state.params.lang);
+			console.log('xxx: ' + $state.params.lang);
 			if ($state.params.lang !== undefined) {
 				currentLang = $state.params.lang;
 				otherLang = ($state.params.lang === 'fr' ? 'en' : 'fr');
@@ -87,7 +87,7 @@
 			var currentLang = '';
 			var otherLang = '';
 
-			console.log('yyy' + $state.params.lang);
+			console.log('yyy: ' + $state.params.lang);
 			if ($state.params.lang !== undefined) {
 				currentLang = $state.params.lang;
 				otherLang = ($state.params.lang === 'fr' ? 'en' : 'fr');
