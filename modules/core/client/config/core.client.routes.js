@@ -34,8 +34,7 @@
         params: {
           lang: {
             value: function($translate){
-              console.log($translate);
-              console.log($translate.use());
+              console.log('111' + $translate.use());
               return $translate.use();
             }
           }
