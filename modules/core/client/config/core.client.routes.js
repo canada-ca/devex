@@ -29,8 +29,9 @@
     $stateProvider
       .state('app', {
         abstract: true,
-        url: '/{lang}',
+        url: '/:lang',
         template: '<ui-view/>',
+        resolve: { lang: ['stateParams', function(stateParams) { return stateParams['lang']; }] },
         params: {
           lang: {
             value: function($translate){
