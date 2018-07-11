@@ -2,7 +2,7 @@
 
 
 
-**Please note: you are required to complete the information requested at the end of this document and submit the modified version of this document with your Proposal.  Refer to &quot;Introduction&quot; and &quot;Acceptance&quot;, below.**
+**Please note: you are required to complete the information requested at the end of this document and submit the modified version of this document with your Proposal.  Refer to &quot;Introduction&quot; and &quot;Acceptance&quot;, below. changes|changements**
 
 
 
