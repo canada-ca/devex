@@ -1,53 +1,26 @@
-<section>
+<form name="vm.userForm" id="vm.userForm" novalidate autocomplete="off">
 
-	<form name="vm.userForm" id="vm.userForm" novalidate autocomplete="off">
-		<div class="row">
-			<div class="col-cm-offset-1 col-sm-11">
-				<fieldset>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" ng-model="vm.user.isDisplayEmail" ng-disabled='vm.user.email === "" || vm.user.email == null'>
-							<span translate="PROFILE_ALLOW_EMAIL">Allow my email to be displayed on the site</span>
-						</label>
-						<br/>
-						<i class="small" translate="PROFILE_ALLOW_EMAIL_DESC">Various sections of the site may publish who authored content, or your name and potentially email address. Click this to allow others to see you email</i>
-					</div>
-					<br/>
-					<div class="checkbox">
-						<label>
-						<input type="checkbox" ng-model="vm.user.notifyOpportunities" ng-disabled='vm.user.email === "" || vm.user.email == null'>
-						<span translate="PROFILE_NOTIFY_ME">Notify me when new opportunities are posted</span>
-						</label>
-						<br/>
-						<i class="small" translate="PROFILE_NOTIFY_ME_DESC">When new opportunites are posted you will recieve an email notification with a link to the opportunity. You can unsubscribe at any time or simply return here and uncheck this option</i>
-					</div>
-					<br/>
-					<div class="checkbox" ng-if="vm.features.swu">
-						<label>
-						<input type="checkbox" ng-model="vm.user.isPublicProfile" ng-disabled='vm.user.email === "" || vm.user.email == null'>
-						Make my profile public
-						</label>
-						<br/>
-						<i class="small" translate="PROFILE_NOTIFY_ME_DESC">This allows non-registered users to view your profile information. You will still be discoverable for purposes of becoming part of organizations and teams, but not visible to general users.</i>
-					</div>
-					<br/>
-					<div class="checkbox" ng-if="vm.features.swu">
-						<label>
-						<input type="checkbox" ng-model="vm.user.isAutoAdd" ng-disabled='vm.user.email === "" || vm.user.email == null'>
-						Allow myself to be added to teams under my organizations without having to consent
-						</label>
-						<br/>
-						<i class="small">For organizations to which you belong, those organizations can add you to teams without first getting your approval.  Your consent will always be required for organizations to which you do not belong, and also to be added to an organization.</i>
-					</div>
-				</fieldset>
-			</div>
+	<fieldset>
+		<h3 class="settings-panel-title">Notifications</h3>
+		<div class="checkbox">
+			<label>
+			<input type="checkbox" ng-model="vm.user.notifyOpportunities" ng-disabled='vm.user.email === "" || vm.user.email == null' translate="PROFILE_NOTIFY_ME">
+			Tell me about new opportunities
+			</label>
+			<span class="checkbox-subtext">We'll send an email to <span class="strong">{{vm.user.email}}</span> whenever a new opportunity is published. You can change your email address on the <a ui-sref="settings.profile">About Me</a> tab.</span>
 		</div>
-		<br/>
-		<div class="row">
-			<div class="col-xs-12">
-				<button ng-click="vm.savePrivacy(vm.userForm.$valid)" class="btn btn-success" translate="PROFILE_UPDATE_SETTINGS">Update settings</button>
-			</div>
-		</div>
-	</form>
+	</fieldset>
 
-</section>
+	<div class="button-spacer">
+		<button ng-click="vm.savePrivacy(vm.userForm.$valid)" class="btn btn-primary" translate="PROFILE_UPDATE_SETTINGS">Save Changes</button>
+	</div>
+
+</form>
+
+<hr>
+
+<h5>Privacy</h5>
+<p class="small">
+	Your personal information is being collected by the Ministry of Citizens’ Services under s.26(c) of the Freedom of Information and Protection of Privacy Act (FOIPPA). The collection, use and disclosure of your personal information is for the purpose of notifying, applying and awarding opportunities on the BCDevExchange. If you have any questions, please contact: Peter Watkins, Executive Director, BC Developers’ Exchange and DevOps, Ministry of Citizens’ Services, 250-514-2739.
+</p>
+<p><a href="/terms/user1" target="_blank"><i class="fas fa-download"></i> Terms of Use</a></p>

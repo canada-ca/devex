@@ -1,0 +1,107 @@
+<section class="bg-secondary main-section">
+  <div class="container">
+
+    <form name="qqq.capabilityForm" id="qqq.capabilityForm" warn-on-exit novalidate autocomplete="off">
+      <div class="bg-light border rounded">
+
+        <div class="bg-light px-4 py-3">
+          <div class="row">
+            <div class="col">
+              <a class="btn btn-text-only float-right" title="Close" ng-click="qqq.close()">
+                  <i class="fas fa-lg fa-times"></i>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8">
+              <form-input class="col-sm-12" data-automation-id="inputCapabilityName" ng-model="qqq.capability.name" x-form="qqq.capabilityForm" x-options='{
+  								"title":"Capability Name",
+  								"id":"name",
+  								"name":"name",
+  								"placeholder":"e.g. Front-end Development",
+  								"required": true
+  							}'>
+              </form-input>
+              <form-input class="col-sm-4" data-automation-id="inputCapabilityLabel" ng-model="qqq.capability.labelClass" x-form="qqq.capabilityForm" x-options='{
+  								"title":"Label Class for Display",
+  								"id":"name",
+  								"name":"name",
+  								"placeholder":"e.g. label-frontend",
+  								"required": true
+  							}'>
+              </form-input>
+              <form-display class="col-sm-8" x-options='{
+  								"id":"flags",
+  								"name":"flags"
+  							}'>
+                <label class="label label-lg label-cap-default {{qqq.capability.labelClass}}"><i class="fas fa-circle"></i>
+                  {{qqq.capability.name}}</label>
+                <label class="label">{{qqq.capability.name}}</label>
+              </form-display>
+
+              <form-display data-automation-id="inputCapabilityDescription" class="col-sm-12" x-options='{
+  								"title":"Capability Description",
+  								"id":"description",
+  								"name":"description"
+  							}'>
+                <textarea name="description" id="description" class="form-control input-sm"
+                  placeholder="A brief description of the capability" ng-model="qqq.capability.description" ui-tinymce="qqq.TinyMceConfiguration">
+  							</textarea>
+              </form-display>
+            </div>
+
+            <div class="col-lg-4 mt-4">
+              <div class="bg-white border rounded p-3" ng-if="qqq.capabilityForm.$valid && qqq.capability._id">
+                <div class="strong mb-2">Preferred Technical Skills</div>
+
+                <!-- Input to add new preferred technical skills -->
+                <div class="input-group mb-3" ng-if="!qqq.editingskill">
+                  <input data-automation-id="addNewSkillText" ng-cloak ng-if="!qqq.editingskill" ng-model="qqq.newskill" type="text" class="form-control"
+                    placeholder="Add a new skill" aria-label="Add a new skill" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button data-automation-id="btnAddNewSkill" lass="btn btn-primary" type="button" ng-click="qqq.addSkill()" ng-if="!qqq.editingskill"
+                      id="add-button">Add</button>
+                  </div>
+                </div>
+
+                <!-- Input to edit the title of a preferred technical skill that was already added -->
+                <div class="input-group mb-3" ng-if="qqq.editingskill">
+                  <input ng-cloak ng-if="qqq.editingskill" ng-model="qqq.newskill" type="text" class="form-control"
+                    placeholder="Add a new skill" aria-label="Edit skill name" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" ng-click="qqq.updateSkill()" id="update-button">Save</button>
+                  </div>
+                </div>
+
+                <!-- List of preferred technicals skills that have been added -->
+                <div class="list-group">
+                  <div class="my-1 ml-1" ng-repeat="skill in qqq.capability.skills">
+                    <label class="label label-lg label-skill">{{skill.name}}</label>
+                    <button type="button" title="Delete Skill" class="btn btn-text-only py-0 px-2 float-right" ng-click="qqq.deleteSkill(skill)"><i
+                        class="fas fa-times"></i></button>
+                    <button type="button" title="Edit Skill" class="btn btn-text-only py-0 px-2 float-right" ng-click="qqq.editSkill(skill)"><i
+                        class="fas fa-pencil-alt"></i></button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-light px-4 py-3 form-footer">
+          <div class="row">
+            <div class="col">
+              <button type="button" data-automation-id="btnSaveCapability" class="btn btn-primary float-right" ng-click="qqq.savenow(qqq.capabilityForm.$valid)"><i
+                  class="fas fa-save"></i> Save</button>
+              <button type="button" data-automation-id="btnDeleteCapability" class="btn btn-text-only" ng-click="qqq.remove()" ng-if="qqq.capability._id"><i class="fas fa-trash"></i>
+                Delete</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</section>

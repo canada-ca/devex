@@ -1,35 +1,17 @@
-<section class="signup">
+<section class="bg-dark main-section">
   <div class="container">
-    <div class="row" style="padding-top: 0;">
-      <div class="col-xs-12 col-md-6 text-center" style="margin-bottom: 30px;">
-        <br>
-        <p style="color: white;" translate="SIGNUP_P1">Join a community of developers, entrepreneurs, and public service innovators who are making public services better.</p>
-        <br>
-        <div class="card">
-          <h3><a href ng-click="vm.callOauthProvider('/api/auth/github')" translate="SIGNUP_GITHUB">Sign in with your GitHub account</a></h3>
-        <!--<div class="social-account-container social-button"><a class="btn"><img class="img-responsive" ng-click="vm.callOauthProvider('/api/auth/github')" ng-src="/modules/users/client/img/buttons/github.png"></a></div>
-        <br><br>-->
-          <h2><a href ng-click="vm.callOauthProvider('/api/auth/github')"><i class="fa fa-github fa-3x"></i></a></h2>
-          <p style="color: #595959;" translate="SIGNUP_P2">Don't have one yet? It only takes a minute.</p>
-          <br>
-        </div>
+
+    <div class="row py-5 justify-content-center">
+      <div class="col-sm-8 text-light text-center">
+        <h2 class="mb-3"><i class="fab fa-github fa-2x"></i></h2>
+        <h3>You need a GitHub account to Sign In</h3>
+
+        <div class="btn btn-lg btn-primary my-5" ng-click="vm.callOauthProvider('/api/auth/github')" translate="SIGNUP_GITHUB">Sign in with <span class="d-none d-sm-inline-block">your</span>
+          GitHub <span class="d-none d-sm-inline-block">account</span></div>
+        
+        <p translate="SIGNUP_P2">Don't have a GitHub account? <a href="https://github.com">Creating one</a> only takes a minute.</p>
       </div>
 
-      <div class="col-xs-12 col-md-4 col-md-offset-1" style="color: white; font-weight: 100;">
-        <div class="row">
-          <div class="container col-md-12 text-center">
-            <h4 style="color: #d2edf9; line-height: 34px;" translate="SIGNUP_PUBLIC_SECTOR"><i class="fa fa-university"></i> &nbsp; Public Sector Employees</h3>
-            <p translate="SIGNUP_P3">Raise your profile with developers and build a community around your open source project. <br>Hire talent fast.</p>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="container col-md-12 text-center">
-            <h4 style="color: #d2edf9; line-height: 34px;" translate="SIGNUP_DEVELOPERS"><i class="fa fa-user-circle-o"></i> &nbsp; Developers</h3>
-            <p translate="SIGNUP_P4">Get notified about new opportunities and events in your area.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>

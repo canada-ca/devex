@@ -1,0 +1,64 @@
+<div class="mx-5 my-4">
+
+  <div class="alert alert-primary" role="alert">
+    Each proposal submitted for your opportunity will receive a score for each stage of the evaluation process.
+    <br>The evaluation stages are listed below, and you can choose the weight that each stage contributes to the final
+    score.
+    <br><span class="strong">Note:</span> Weights are specified as percentages and the sum of all weights must total up
+    to 100%.
+  </div>
+
+  <div class="weight-entry-form">
+    <form name="scoreForm">
+      <div class="row">
+        <table>
+          <tr class="spaceUnder">
+            <td align="right" class="weight-entry-label-cell">Skills</td>
+            <td><input data-automation-id="skillScore" class="weight-entry-input" name="input" type="number" min="0" ng-disabled="vm.opportunity.isPublished || vm.opportunity.wasPublished"
+                ng-model="vm.opportunity.weights.skill" percentage-input onclick="this.select()"/></td>
+          </tr>
+          <tr class="spaceUnder">
+            <td align="right" class="weight-entry-label-cell">Team Questions</td>
+            <td><input data-automation-id="teamQuestionScore" class="weight-entry-input" name="input" type="number" min="0" ng-disabled="vm.opportunity.isPublished || vm.opportunity.wasPublished"
+                ng-model="vm.opportunity.weights.question" percentage-input onclick="this.select()" /></td>
+          </tr>
+          <tr class="spaceUnder">
+            <td align="right" class="weight-entry-label-cell">Code Challenge</td>
+            <td><input data-automation-id="codeChallengeScore" class="weight-entry-input" name="input" type="number" min="0" ng-disabled="vm.opportunity.isPublished || vm.opportunity.wasPublished"
+                ng-model="vm.opportunity.weights.codechallenge" percentage-input onclick="this.select()" /></td>
+          </tr>
+          <tr class="spaceUnder">
+            <td align="right" class="weight-entry-label-cell">Team Scenario</td>
+            <td><input data-automation-id="teamScenarioScore" class="weight-entry-input" name="input" type="number" min="0" ng-disabled="vm.opportunity.isPublished || vm.opportunity.wasPublished"
+                ng-model="vm.opportunity.weights.interview" percentage-input onclick="this.select()" /></td>
+          </tr>
+          <tr class="spaceUnder">
+            <td align="right" class="weight-entry-label-cell">Price</td>
+            <td><input data-automation-id="priceScore" class="weight-entry-input" name="input" type="number" min="0" ng-disabled="vm.opportunity.isPublished || vm.opportunity.wasPublished"
+                ng-model="vm.opportunity.weights.price" percentage-input onclick="this.select()" /></td>
+          </tr>
+          <tr class="spaceUnder">
+            <td align="right" class="weight-entry-label-cell"><strong>Total</strong></td>
+            <td align="right">
+              <span ng-class="{ 'weight-total-text-invalid': vm.addWeights() !== 100,
+                                  'weight-total-text-valid': vm.addWeights() === 100 }">
+                {{vm.addWeights()}}%
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="alert alert-warning" ng-show="vm.addWeights() !== 100 && (!vm.opportunity.isPublished && !vm.opportunity.wasPublished)"><i
+              class="fas fa-exclamation-circle"></i> The weights must add up to 100% to be applied.</span>
+          <span class="alert alert-info" ng-show="vm.addWeights() === 100 && (!vm.opportunity.isPublished && !vm.opportunity.wasPublished)"><i
+              class="fas fa-check-circle"></i> Save the opportunity to apply these weights.</span>
+          <span class="alert alert-warning" ng-show="vm.opportunity.isPublished || vm.opportunity.wasPublished"><strong>Note:
+            </strong>You cannot update the stage weights once the opportunity has been published.</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

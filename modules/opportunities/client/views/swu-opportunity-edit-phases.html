@@ -1,0 +1,234 @@
+<div class="mx-5 my-4">
+  <div class="row">
+    <div class="col-sm-4 ">
+      <div class="panel panel-default"
+           ng-class="{'text-secondary': !vm.isPhaseIncluded(vm.opportunity.phases.inception)}">
+        <div class="panel-body">
+
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary"
+                    data-automation-id="btnInception"
+                    ng-click="vm.changeToStartPhase(vm.opportunity.phases.inception)"
+                    ng-disabled="vm.opportunity.phases.inception.isInception">
+              Start Here
+            </button>
+          </div>
+
+          <hr>
+          <h2 style="text-align: center"><i class="fas fa-map"></i> Inception</h2>
+          <p>During inception, you take your business goals and Discovery research you've done with your users and
+            explore the potential value that a new digital product can bring. Then you prioritize features you think a
+            Minimum Viable Product should have and try to scope out what will be required to get to an Alpha release.</p>
+          <div class="alert alert-simple">
+            <span class="strong">You're ready for Inception if you've:</span><br>
+            <ul>
+              <li>Done thorough Discovery work with stakeholders and potential end users</li>
+              <li>Have clear business objectives and a solid understanding of your users' needs</li>
+              <li>Have strong support from your senior executive</li>
+            </ul>
+          </div>
+          <div class="alert alert-info">
+            <i class="fas fa-cubes"></i>
+            <span class="strong">Deliverables</span><br>
+            At the end of Inception, you should have:
+            <ul>
+              <li>Happy stakeholders with a shared vision for your digital product</li>
+              <li>A product backlog for the Alpha release</li>
+            </ul>
+          </div>
+          <div ng-if="vm.opportunity.phases.inception.isInception">
+            <hr>
+            <label for="start-date" class="text-black-50">I want Inception to <span class="strong">start</span> on or
+              before:</label>
+            <form-input ng-model="vm.opportunity.phases.inception.startDate" x-form="vm.opportunityForm" x-options='{
+									"id":"inceptionStartDate",
+									"name":"inceptionStartDate",
+									"type":"date"
+								}'>
+            </form-input>
+            <br>
+            <label for="phase-deadline" class="text-black-50">I want Inception <span class="strong">complete</span> by:</label>
+            <form-input ng-model="vm.opportunity.phases.inception.endDate" x-form="vm.opportunityForm" x-options='{
+									"id":"inceptionCompleteDate",
+                  "name":"inceptionCompleteDate",
+									"type":"date"
+								}'>
+            </form-input>
+            <hr>
+            <h4>Capabilities</h4>
+            <p>Select the capabilities you need. For any capabilities you expect to be available <span class="strong">full-time</span>,
+              mark it with the <label class="label label-fulltime-selected">F/T</label> label.</p>
+            <ul class="list-group">
+              <li class="list-group-item"
+                  data-automation-id="tglCapabilityInception"
+                  ng-repeat="capability in vm.allCapabilities"
+                  ng-class="{'list-group-item-selected' : vm.isCapabilitySelected(capability, vm.opportunity.phases.inception.capabilities)}"
+                  ng-click="vm.toggleSelectedCapability(capability, vm.opportunity.phases.inception.capabilities)">
+                <a href="">{{capability.name}}</a>
+                <label class="label label-fulltime float-right"
+                      ng-if="vm.isCapabilitySelected(capability, vm.opportunity.phases.inception.capabilities)"
+                      ng-class="{'label-fulltime-selected' : vm.isCapabilitySelected(capability, vm.opportunity.phases.inception.capabilitiesCore)}"
+                      ng-click="$event.stopPropagation(); vm.toggleSelectedCapability(capability, vm.opportunity.phases.inception.capabilitiesCore)">
+                  F/T
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default" ng-class="{'text-secondary': !vm.isPhaseIncluded(vm.opportunity.phases.proto)}">
+        <div class="panel-body">
+
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-primary"
+                      data-automation-id="btnProofOfConcept"
+                      ng-click="vm.changeToStartPhase(vm.opportunity.phases.proto)"
+                      ng-disabled="!vm.opportunity.phases.inception.isInception && vm.opportunity.phases.proto.isPrototype">
+                Start Here
+              </button>
+            </div>
+
+          <hr>
+          <h2 style="text-align: center"><i class="fas fa-rocket"></i> Proof of Concept</h2>
+          <p>In this phase, you make your value propositions tangible so they can be validated. Here's where you get
+            coding the core features you scoped out in Inception, working towards that exciting Alpha release! By the
+            end of this phase, you should be able to plan what it will take to fully implement and maintain the product
+            long-term.</p>
+          <div class="alert alert-simple">
+            <span class="strong">You're ready for Proof of Concept stage if you have:</span><br>
+            <ul>
+              <li>A clear product vision</li>
+              <li>A three month backlog</li>
+            </ul>
+          </div>
+          <div class="alert alert-info">
+            <i class="fas fa-cubes"></i>
+            <span class="strong">Deliverables</span><br>
+            At the end of Proof of Concept, you should have:
+            <ul>
+              <li>Alpha release of the product</li>
+              <li>A build/buy/licence decision</li>
+              <li>Product Roadmap</li>
+              <li>Resourcing plan for Implementation</li>
+            </ul>
+          </div>
+          <div ng-if="vm.opportunity.phases.proto.isPrototype">
+            <hr>
+            <label for="start-date" class="text-black-50">I want the P.O.C. phase to <span class="strong">start</span>
+              on or before:</label>
+            <form-input ng-model="vm.opportunity.phases.proto.startDate" x-form="vm.opportunityForm" x-options='{
+									"id":"prototypeStartDate",
+									"name":"prototypeStartDate",
+									"type":"date"
+								}'>
+            </form-input>
+            <br>
+            <label for="phase-deadline" class="text-black-50">I want an <span class="strong">Alpha release</span> on or
+              before:</label>
+            <form-input ng-model="vm.opportunity.phases.proto.endDate" x-form="vm.opportunityForm" x-options='{
+									"id":"prototypeEndDate",
+									"name":"prototypeEndDate",
+									"type":"date"
+								}'>
+            </form-input>
+            <hr>
+            <h4>Capabilities</h4>
+            <p>Select the capabilities you need. For any capabilities you expect to be available <span class="strong">full-time</span>,
+              mark it with the <label class="label label-fulltime-selected">F/T</label> label.</p>
+              <ul class="list-group">
+                <li class="list-group-item"
+                    data-automation-id="tglCapabilityProofOfConcept"
+                    ng-repeat="capability in vm.allCapabilities"
+                    ng-class="{'list-group-item-selected' : vm.isCapabilitySelected(capability, vm.opportunity.phases.proto.capabilities)}"
+                    ng-click="vm.toggleSelectedCapability(capability, vm.opportunity.phases.proto.capabilities)">
+                  <a href="">{{capability.name}}</a>
+                  <label class="label label-fulltime float-right"
+                        ng-if="vm.isCapabilitySelected(capability, vm.opportunity.phases.proto.capabilities)"
+                        ng-class="{'label-fulltime-selected' : vm.isCapabilitySelected(capability, vm.opportunity.phases.proto.capabilitiesCore)}"
+                        ng-click="$event.stopPropagation(); vm.toggleSelectedCapability(capability, vm.opportunity.phases.proto.capabilitiesCore)">
+                    F/T
+                  </label>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-primary"
+                      data-automation-id="btnImplementation"
+                      ng-click="vm.changeToStartPhase(vm.opportunity.phases.implementation)"
+                      ng-disabled="!vm.opportunity.phases.proto.isPrototype">
+                Start Here
+              </button>
+            </div>
+
+          <hr>
+          <h2 style="text-align: center"><i class="fas fa-cogs"></i> Implementation</h2>
+          <p>If you’ve reached the implementation stage, your organization is fully invested in the new digital product
+            and intends to continuously improve it. Now you need to carefully architect and automate your delivery
+            pipeline for stability and continuous deployment.</p>
+          <div class="alert alert-simple">
+            <span class="strong">You're at the Implementation phase when you:</span><br>
+            <ul>
+              <li>Have the product in production</li>
+              <li>Have a Product Roadmap</li>
+              <li>Know the resources you need for full implementation</li>
+            </ul>
+          </div>
+          <div class="alert alert-info">
+            <i class="fas fa-cubes"></i>
+            <span class="strong">Deliverables</span><br>
+            <ul>
+              <li>Delivery of the functional components in the Product Roadmap</li>
+            </ul>
+          </div>
+          <div ng-if="vm.opportunity.phases.implementation.isImplementation">
+            <hr>
+            <label for="start-date" class="text-black-50">I want this phase to <span class="strong">start</span> on or
+              before:</label>
+            <form-input ng-model="vm.opportunity.phases.implementation.startDate" x-form="vm.opportunityForm" x-options='{
+									"id":"implementationStartDate",
+									"name":"mplementationStartDate",
+									"type":"date"
+								}'>
+            </form-input>
+            <br>
+            <label for="phase-deadline" class="text-black-50">I want my Implementation team until:</label>
+            <form-input ng-model="vm.opportunity.phases.implementation.endDate" x-form="vm.opportunityForm" x-options='{
+									"id":"implementationEndDate",
+									"name":"implementationEndDate",
+									"type":"date"
+								}'>
+            </form-input>
+            <hr>
+            <h4>Capabilities</h4>
+            <p>Select the capabilities you need. For any capabilities you expect to be available <span class="strong">full-time</span>,
+              mark it with the <label class="label label-fulltime-selected">F/T</label> label.</p>
+              <ul class="list-group">
+                <li class="list-group-item"
+                    data-automation-id="tglCapabilityImplementation"
+                    ng-repeat="capability in vm.allCapabilities"
+                    ng-class="{'list-group-item-selected' : vm.isCapabilitySelected(capability, vm.opportunity.phases.implementation.capabilities)}"
+                    ng-click="vm.toggleSelectedCapability(capability, vm.opportunity.phases.implementation.capabilities)">
+                  <a href="">{{capability.name}}</a>
+                  <label class="label label-fulltime float-right"
+                        ng-if="vm.isCapabilitySelected(capability, vm.opportunity.phases.implementation.capabilities)"
+                        ng-class="{'label-fulltime-selected' : vm.isCapabilitySelected(capability, vm.opportunity.phases.implementation.capabilitiesCore)}"
+                        ng-click="$event.stopPropagation(); vm.toggleSelectedCapability(capability, vm.opportunity.phases.implementation.capabilitiesCore)">
+                    F/T
+                  </label>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col m-3">
+    <h5>Questionnaire Review</h5>
+    <br>
+    <div class="row">
+      <div class="col text-center">
+        <p>Review each response for self-identifying information, and mark those that are invalid. Commit your review
+          once complete.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ul class="w-50 mx-auto p-0" uib-pagination items-per-page="1" total-items="data.questions.length" ng-model="data.currentPage"
+          ng-change="pageChanged()"></ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="" ng-repeat="question in data.questions" ng-if="data.currentPage===($index+1)">
+          <div class="bg-primary text-white rounded text-center">
+            <strong>
+              Question: <span ng-bind-html="question.question"></span>
+            </strong>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="response in data.responses.get(question)">
+              <div class="row">
+                <div class="col">
+                  <div class="float-right">
+                    Reject <input type="checkbox" ng-model="response.rejected"><br />
+                  </div>
+                  <div class="float-left" ng-class="{rejected: response.rejected}" ng-bind-html="response.response">
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="my-3 text-right">
+      <button class="btn btn-default" data-ng-click="cancel()">Cancel</button>
+      <button class="btn btn-success" data-ng-click="commit()"><i class="fas fa-thumbs-up"></i> Commit</button>
+      <button class="btn btn-primary" data-ng-click="save()">Save</button>
+
+    </div>
+
+  </div>
+</div>

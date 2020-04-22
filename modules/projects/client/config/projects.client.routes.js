@@ -17,7 +17,7 @@
 		.state('en.projects', {
 			abstract: true,
 			url: '/projects',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'en'
 	        }
@@ -25,7 +25,7 @@
 		.state('fr.projects', {
 			abstract: true,
 			url: '/projets',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'fr'
 	        }
@@ -63,9 +63,9 @@
 				label: 'Liste des projets'
 			},
 			resolve: {
-				projects: function ($stateParams, ProjectsService) {
+				projects: ['$stateParams', 'ProjectsService', function ($stateParams, ProjectsService) {
 					return ProjectsService.query ();
-				}
+				}]
 			},
 			controller: 'ProjectsListController',
 			controllerAs: 'vm'
@@ -84,11 +84,11 @@
 			controller: 'ProjectViewController',
 			controllerAs: 'vm',
 			resolve: {
-				project: function ($stateParams, ProjectsService) {
+				project: ['$stateParams', 'ProjectsService', function ($stateParams, ProjectsService) {
 					return ProjectsService.get({
 						projectId: $stateParams.projectId
 					}).$promise;
-				}
+				}]
 			},
 			data: {
 				pageTitle: 'Project: {{ project.name }}'
@@ -129,7 +129,7 @@
 		.state('en.projectadmin', {
 			abstract: true,
 			url: '/projectadmin',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'en'
 	        }
@@ -137,7 +137,7 @@
 		.state('fr.projectadmin', {
 			abstract: true,
 			url: '/adminprojet',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'fr'
 	        }
@@ -156,22 +156,22 @@
 			controller: 'ProjectEditController',
 			controllerAs: 'vm',
 			resolve: {
-				project: function ($stateParams, ProjectsService) {
+				project: ['$stateParams', 'ProjectsService', function ($stateParams, ProjectsService) {
 					return ProjectsService.get({
 						projectId: $stateParams.projectId
 					}).$promise;
-				},
-				programs: function (ProgramsService) {
+				}],
+				programs: ['ProgramsService', function (ProgramsService) {
 					return ProgramsService.myadmin ().$promise;
-				},
+				}],
 				editing: function () { return true; },
-				previousState: function ($state) {
+				previousState: ['$state', function ($state) {
 					return {
 						name: $state.current.name,
 						params: $state.params,
 						url: $state.href($state.current.name, $state.params)
 					};
-				}
+				}]
 			},
 			data: {
 				roles: ['admin', 'gov'],
@@ -233,20 +233,20 @@
 			controller: 'ProjectEditController',
 			controllerAs: 'vm',
 			resolve: {
-				project: function (ProjectsService) {
+				project: ['ProjectsService', function (ProjectsService) {
 					return new ProjectsService();
-				},
-				programs: function (ProgramsService) {
+				}],
+				programs: ['ProgramsService', function (ProgramsService) {
 					return ProgramsService.myadmin ().$promise;
-				},
+				}],
 				editing: function () { return false; },
-				previousState: function ($state) {
+				previousState: ['$state', function ($state) {
 					return {
 						name: $state.current.name,
 						params: $state.params,
 						url: $state.href($state.current.name, $state.params)
 					};
-				}
+				}]
 			},
 			data: {
 				roles: ['admin', 'gov'],

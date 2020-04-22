@@ -16,6 +16,7 @@ app/tests/coverage/
 .idea/
 coverage/
 .coveralls.yml
+server-js/
 
 # MEAN.js app and assets
 # ======================
@@ -75,3 +76,14 @@ mongod
 *.ntvs*
 *.njsproj
 *.sln
+
+# Visual Studio Code
+# =========
+.vscode/
+
+# Local Environment Setup (only used when running directly from local machine, not in container)
+.env
+.env_4000
+
+# Ignore transpiled server output
+/server-dist

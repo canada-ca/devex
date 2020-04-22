@@ -5,29 +5,13 @@
     .module('users.admin')
     .run(menuConfig);
 
-  menuConfig.$inject = ['menuService'];
+  menuConfig.$inject = ['MenuService'];
 
   // Configuring the Users module
-  function menuConfig(menuService) {
-    menuService.addSubMenuItem('topbar', 'admin', {
+  function menuConfig(MenuService) {
+    MenuService.addSubMenuItem('topbar', 'admin', {
       title: 'Manage Users',
       state: 'admin.users'
-    });
-    menuService.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Gov. Request',
-      state: 'admin.govs'
-    });
-    menuService.addSubMenuItem('topbar', 'admin', {
-      title: 'Notify of Opportunities',
-      state: 'admin.notifyopps'
-    });
-    menuService.addSubMenuItem('topbar', 'admin', {
-      title: 'Notify of Events',
-      state: 'admin.notifymeets'
-    });
-    menuService.addSubMenuItem('topbar', 'admin', {
-      title: 'Full Data List',
-      state: 'admin.datalist'
     });
   }
 }());

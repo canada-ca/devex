@@ -1,10 +1,8 @@
-(function () {
+(function() {
 	'use strict';
 
 	// Setting up route
-	angular
-		.module('users.routes')
-		.config(routeConfig);
+	angular.module('users.routes').config(routeConfig);
 
 	routeConfig.$inject = ['$stateProvider'];
 
@@ -21,9 +19,12 @@
 					roles: ['user', 'admin', 'gov-request', 'gov']
 				},
 				resolve: {
-					capabilities: function (SkillsService) {
-						return SkillsService.list ();
-					}
+					capabilities: [
+						'CapabilitiesService',
+						function(CapabilitiesService) {
+							return CapabilitiesService.query().$promise;
+						}
+					]
 				},
         		params: {
           			lang: 'en'
@@ -39,9 +40,12 @@
 					roles: ['user', 'admin', 'gov-request', 'gov']
 				},
 				resolve: {
-					capabilities: function (SkillsService) {
-						return SkillsService.list ();
-					}
+					capabilities: [
+						'CapabilitiesService',
+						function(CapabilitiesService) {
+							return CapabilitiesService.query().$promise;
+						}
+					]
 				},
         		params: {
           			lang: 'fr'
@@ -54,6 +58,14 @@
 				controllerAs: 'vm',
 				data: {
 					pageTitle: 'Skills'
+				},
+				resolve: {
+					capabilities: [
+						'CapabilitiesService',
+						function(CapabilitiesService) {
+							return CapabilitiesService.query().$promise;
+						}
+					]
 				}
 			})
 			.state ('fr.settings.skills', {
@@ -70,11 +82,6 @@
 				templateUrl: '/modules/users/client/views/settings/profile-privacy.html',
 				controller: 'ProfilePrivacyController',
 				controllerAs: 'vm',
-				resolve: {
-					subscriptions: function (NotificationsService) {
-						return NotificationsService.subscriptions().$promise;
-					}
-				},
 				data: {
 					pageTitle: 'Privacy & Notifications'
 				},

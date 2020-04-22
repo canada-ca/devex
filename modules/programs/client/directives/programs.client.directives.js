@@ -12,7 +12,7 @@
 			controllerAs : 'vm',
 			scope        : {},
 			templateUrl  : '/modules/programs/client/views/list.programs.directive.html',
-			controller   : function ($scope, $state, ProgramsService, Authentication, Notification, $filter, $translate) {
+			controller   : ['$scope', 'ProgramsService', 'AuthenticationService', 'Notification', 'dataService', '$filter', '$translate', function ($scope, ProgramsService, authenticationService, Notification, dataService, $filter, $translate) {
 				$scope.isEnglish = function() {
 			        return ($translate.use() === 'en');
 			    };
@@ -25,8 +25,8 @@
 			    }
 
 				var vm = this;
-				var isAdmin  = Authentication.user && !!~Authentication.user.roles.indexOf ('admin');
-				var isGov    = Authentication.user && !!~Authentication.user.roles.indexOf ('gov');
+				var isAdmin  = authenticationService.user && !!~authenticationService.user.roles.indexOf ('admin');
+				var isGov    = authenticationService.user && !!~authenticationService.user.roles.indexOf ('gov');
 				vm.isAdmin = isAdmin;
 				vm.isGov = isGov;
 				vm.userCanAdd = (isAdmin || isGov);
@@ -61,16 +61,16 @@
 					}).$promise
 					.then (function () {
 						program.userIs.request = true;
-						Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Membership request sent successfully!' });
+						Notification.success({ message: '<i class="fas fa-check-circle"></i> Membership request sent successfully!' });
 					})
 					.catch (function (res) {
 						Notification.error ({
 							message : res.data.message,
-							title   : '<i class=\'glyphicon glyphicon-remove\'></i> Membership Request Error!'
+							title   : '<i class=\'fas fa-exclamation-triangle\'></i> Membership Request Error!'
 						});
 					});
 				};
-			}
+			}]
 		}
 	})
 	;

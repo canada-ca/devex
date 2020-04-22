@@ -1,0 +1,74 @@
+/* Please save this stylesheet in case we want to reuse it for the 2020 BCTECHSummit */
+.bc-tech-homepage-banner {
+    background: url('/modules/core/client/img/bc-tech-summit/summit-banner.jpg') no-repeat top;
+    padding: 2rem 0;
+}
+section.bc-tech-header {
+    background: url('/modules/core/client/img/bc-tech-summit/summit-banner.jpg') no-repeat center;
+    background-size: cover;
+}
+@media (max-width: 576px) {
+    .no-pad-xs {
+        padding: 0;
+    }
+}
+.photo-citation {
+    color: $white;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.6rem;
+}
+.booth-label {
+    background-color: $black;
+    color: $white;
+    font-weight: 400;
+    font-size: 1.4rem;
+    padding: 5px 8px;
+    border-radius: 22px;
+}
+.team-box {
+    border-right: 22px solid;
+    border-left: 4px solid;
+    background: $white;
+    padding: 2.5rem 1.5rem;
+}
+@media (max-width: 767px) {
+    .team-box {
+        padding: 1rem;
+    }
+}
+@media (min-width: 768px) {
+    .team-box {
+        padding: 1rem 2rem;
+    }
+}
+@media (min-width: 992px) {
+    .team-box {
+        padding: 2rem;
+    }
+}
+.staff-members-list {
+    overflow: auto;
+}
+.staff-member {
+    line-height: 1.3;
+    display: inline-block;
+    margin: 5px 10px 5px 0;
+    width: fit-content;
+    white-space: nowrap;
+}
+img.staff-member {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.staff-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.staff-title {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: $gray;
+}

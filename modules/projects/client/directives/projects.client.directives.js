@@ -16,7 +16,7 @@
 				context: '@'
 			},
 			templateUrl  : '/modules/projects/client/views/list.projects.directive.html',
-			controller   : function ($scope, $state, ProjectsService, Authentication, Notification, $filter, $translate) {
+			controller   : ['$scope', 'ProjectsService', 'AuthenticationService', 'Notification', '$filter', '$translate', function ($scope, ProjectsService, authenticationService, Notification, $filter, $translate) {
 				$scope.isEnglish = function() {
 			        return ($translate.use() === 'en');
 			    };
@@ -31,9 +31,9 @@
 				var vm     = this;
 				vm.program = $scope.program;
 				vm.context = $scope.context;
-				var isUser = Authentication.user;
-				vm.isAdmin = isUser && !!~Authentication.user.roles.indexOf ('admin');
-				vm.isGov   = isUser && !!~Authentication.user.roles.indexOf ('gov');
+				var isUser = authenticationService.user;
+				vm.isAdmin = isUser && !!~authenticationService.user.roles.indexOf ('admin');
+				vm.isGov   = isUser && !!~authenticationService.user.roles.indexOf ('gov');
 				if (vm.context === 'program') {
 					vm.programId = vm.program._id;
 					vm.programTitle = vm.program.title;
@@ -71,7 +71,7 @@
 					//
 					.then (function () {
 						Notification.success ({
-							message : '<i class="glyphicon glyphicon-ok"></i> Project '+t+' Successfully!'
+							message : '<i class="fas fa-check-circle"></i> Project '+t+' Successfully!'
 						});
 					})
 					//
@@ -81,7 +81,7 @@
 						project.isPublished = publishedState;
 						Notification.error ({
 							message : res.data.message,
-							title   : '<i class=\'glyphicon glyphicon-remove\'></i> Project '+t+' Error!'
+							title   : '<i class=\'fas fa-exclamation-triangle\'></i> Project '+t+' Error!'
 						});
 					});
 				};
@@ -91,16 +91,16 @@
 					}).$promise
 					.then (function () {
 						project.userIs.request = true;
-						Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Membership request sent successfully!' });
+						Notification.success({ message: '<i class="fas fa-check-circle"></i> Membership request sent successfully!' });
 					})
 					.catch (function (res) {
 						Notification.error ({
 							message : res.data.message,
-							title   : '<i class=\'glyphicon glyphicon-remove\'></i> Membership Request Error!'
+							title   : '<i class=\'fas fa-exclamation-triangle\'></i> Membership Request Error!'
 						});
 					});
 				};
-			}
+			}]
 		}
 	})
 	;

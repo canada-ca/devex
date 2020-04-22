@@ -1,8 +1,12 @@
-<section class="detail">
-
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 text-right">
+<div class="back-nav">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <a href="/programs"><i class="fas fa-chevron-left"></i>&nbsp;&nbsp;All Programs</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 				<div class="btn-group">
 					<button type="button" class="btn btn-default" ng-if="vm.canEdit && isEnglish()" ui-sref="en.programadmin.edit({programId:vm.program.code})" uib-tooltip="Edit this page">
@@ -53,7 +57,4 @@
 			</button>
 		</div>
 	</div>
-	</div>
-</div>
-</div>
 </section>

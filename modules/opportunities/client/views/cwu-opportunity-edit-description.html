@@ -1,0 +1,13 @@
+<div class="m-5">
+  <fieldset>
+    <form-display class="col" x-options='{
+				"title":"Background",
+				"name":"description",
+				"help":"Here is where you can fully describe any useful background, and what you are trying to accomplish by offering this paid opportunity."
+			}'>
+      <textarea name="description" id="description" data-automation-id="text-cwu-description" class="form-control"
+        ui-tinymce="vm.TinyMceConfiguration" placeholder="A full description of the opportunity" ng-model="vm.opportunity.description">
+			</textarea>
+    </form-display>
+  </fieldset>
+</div>

@@ -17,7 +17,7 @@
 		.state('en.programs', {
 			abstract: true,
 	    url: '/teams',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'en'
 	        }
@@ -25,7 +25,7 @@
 	    .state('fr.programs', {
 			abstract: true,
 	        url: '/equipes',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'fr'
 	        }
@@ -63,9 +63,9 @@
 				label: 'Liste des équipes'
 			},
 			resolve: {
-				programs: function ($stateParams, ProgramsService) {
+				programs: ['$stateParams', 'ProgramsService', function ($stateParams, ProgramsService) {
 					return ProgramsService.query ();
-				}
+				}]
 			},
 			controller: 'ProgramsListController',
 			controllerAs: 'vm'
@@ -81,11 +81,11 @@
 			controller: 'ProgramViewController',
 			controllerAs: 'vm',
 			resolve: {
-				program: function ($stateParams, ProgramsService) {
+				program: ['$stateParams', 'ProgramsService', function ($stateParams, ProgramsService) {
 					return ProgramsService.get({
 						programId: $stateParams.programId
 					}).$promise;
-				}
+				}]
 			},
 			data: {
 				pageTitle: 'Team: {{program.title}}'
@@ -123,7 +123,7 @@
 		.state('en.programadmin', {
 			abstract: true,
 			url: '/programadmin',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'en'
 	        }
@@ -131,7 +131,7 @@
 		.state('fr.programadmin', {
 			abstract: true,
 			url: '/adminequipe',
-			template: '<ui-view/>',
+			template: '<ui-view autoscroll="true"></ui-view>',
 	        params: {
 	        	lang: 'fr'
 	        }
@@ -147,19 +147,19 @@
 			controller: 'ProgramEditController',
 			controllerAs: 'vm',
 			resolve: {
-				program: function ($stateParams, ProgramsService) {
+				program: ['$stateParams', 'ProgramsService', function ($stateParams, ProgramsService) {
 					return ProgramsService.get({
 						programId: $stateParams.programId
 					}).$promise;
-				},
+				}],
 				editing: function () { return true; },
-				previousState: function ($state) {
+				previousState: ['$state', function ($state) {
 					return {
 						name: $state.current.name,
 						params: $state.params,
 						url: $state.href($state.current.name, $state.params)
 					};
-				}
+				}]
 			},
 			data: {
 				roles: ['admin', 'gov'],
@@ -210,17 +210,17 @@
 			controller: 'ProgramEditController',
 			controllerAs: 'vm',
 			resolve: {
-				program: function (ProgramsService) {
+				program: ['ProgramsService', function (ProgramsService) {
 					return new ProgramsService();
-				},
+				}],
 				editing: function () { return false; },
-				previousState: function ($state) {
+				previousState: ['$state', function ($state) {
 				  return {
 					name: $state.current.name,
 					params: $state.params,
 					url: $state.href($state.current.name, $state.params)
 				  };
-				}
+				}]
 			},
 			data: {
 				roles: ['admin', 'gov'],

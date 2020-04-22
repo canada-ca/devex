@@ -1,0 +1,43 @@
+<div class="back-nav">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <a ui-sref="capabilities.list()"><i class="fas fa-chevron-left"></i>&nbsp;&nbsp;All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="main-section">
+  <div class="container">
+
+    <div class="row py-3" ng-if="vm.canEdit">
+      <div class="col text-right">
+        <button type="button" class="btn btn-text-only" ui-sref="capabilityadmin.edit({capabilityId:vm.capability.code})"
+          title="Edit capability" ng-disabled="!vm.editingAllowed"><i class="fas fa-pencil-alt"></i> Edit</button>
+      </div>
+    </div>
+
+    <div class="row py-3">
+      <div class="col-md-8 my-3">
+        <h1 class="capability-detail" ng-bind="vm.capability.name"></h1>
+        <div ng-bind-html="vm.trust(vm.capability.description)"></div>
+      </div>
+      <div class="col-md-4 my-3" ng-if="vm.capability.skills.length">
+        <div class="p-3 bg-light border rounded">
+          <h5 class="mb-3">Preferred Technical Skills</h5>
+          <div ng-repeat="skill in vm.capability.skills"><label class="label label-lg label-skill">{{skill.name}}</label></div>
+        </div>        
+      </div>
+    </div>
+
+    <div class="row py-3">
+      <div class="col">
+        <div class="alert alert-warning">
+          <strong>Got this capability?</strong> Claim it in your <a href="/settings/skills">personal profile</a>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

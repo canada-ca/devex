@@ -1,6 +1,7 @@
 'use strict';
 
-var fs = require('fs');
+var databaseServiceName = (process.env.DATABASE_SERVICE_NAME || 'mongodb').toUpperCase().replace(/-/g, '_');
+var replicaSetString = process.env.MONGODB_REPLICA_NAME ? `?replicaSet=${process.env.MONGODB_REPLICA_NAME}` : '';
 
 module.exports = {
   app: {
@@ -78,24 +79,13 @@ module.exports = {
     caBundle: './config/sslcerts/chain.pem'
   },
   db: {
-    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.MONGODB_SERVICE_HOST || process.env.DB_DEVEX_PORT_27017_TCP_ADDR || 'localhost') + '/' + (process.env.MONGODB_DATABASE || 'mean'),
+    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env[`${databaseServiceName}_SERVICE_HOST`] || 'localhost') + ':27017' + '/' + (process.env.MONGODB_DATABASE || 'mean') + replicaSetString,
     options: {
       user: process.env.MONGODB_USER || '',
-      pass: process.env.MONGODB_PASSWORD || ''
-      /**
-        * Uncomment to enable ssl certificate based authentication to mongodb
-        * servers. Adjust the settings below for your specific certificate
-        * setup.
-      server: {
-        ssl: true,
-        sslValidate: false,
-        checkServerIdentity: false,
-        sslCA: fs.readFileSync('./config/sslcerts/ssl-ca.pem'),
-        sslCert: fs.readFileSync('./config/sslcerts/ssl-cert.pem'),
-        sslKey: fs.readFileSync('./config/sslcerts/ssl-key.pem'),
-        sslPass: '1234'
-      }
-      */
+      pass: process.env.MONGODB_PASSWORD || '',
+      autoReconnect: true,
+      reconnectTries: Number.MAX_VALUE,
+      reconnectInterval: 1000
     },
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
@@ -115,59 +105,23 @@ module.exports = {
       json: false
     }
   },
-  facebook: {
-    clientID: process.env.FACEBOOK_ID || 'APP_ID',
-    clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/facebook/callback'
-  },
-  twitter: {
-    clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
-    clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
-    callbackURL: '/api/auth/twitter/callback'
-  },
-  google: {
-    clientID: process.env.GOOGLE_ID || 'APP_ID',
-    clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/google/callback'
-  },
-  linkedin: {
-    clientID: process.env.LINKEDIN_ID || 'APP_ID',
-    clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/linkedin/callback'
-  },
   github: {
     clientID: process.env.GITHUB_ID || 'APP_ID',
     clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
     callbackURL: '/api/auth/github/callback',
     personalAccessToken: process.env.GITHUB_ACCESS_TOKEN || 'GITHUB_ACCESS_TOKEN'
   },
-  paypal: {
-    clientID: process.env.PAYPAL_ID || 'CLIENT_ID',
-    clientSecret: process.env.PAYPAL_SECRET || 'CLIENT_SECRET',
-    callbackURL: '/api/auth/paypal/callback',
-    sandbox: false
-  },
   mailer: {
-    from: process.env.MAILER_FROM || '"BC Developers Exchange" <noreply@bcdevexchange.org>',
+    from: process.env.MAILER_FROM || '"BC Developer\'s Exchange" <noreply@bcdevexchange.org>',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
-      host: 'apps.smtp.gov.bc.ca',
-      ignoreTLS: true,
-      secure: false
-    }
-  },
-  seedDB: {
-    seed: true,
-    options: {
-      logResults: process.env.MONGO_SEED_LOG_RESULTS !== 'false',
-      seedAdmin: {
-        username: 'admin',
-        provider: 'local',
-        email: 'admin@localhost.com',
-        firstName: 'Admin',
-        lastName: 'Local',
-        displayName: 'Admin Local',
-        roles: ['user', 'admin']
+      host: process.env.MAILER_HOST || 'apps.smtp.gov.bc.ca',
+      port: process.env.MAILER_PORT || 25,
+      secure: false,
+      connectionTimeout: 30000,
+      greetingTimeout: 30000,
+      ignoreTLS: false,
+      tls: {
+        rejectUnauthorized: false
       }
     }
   }

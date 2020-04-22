@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col m-3">
+
+    <h5>Code Challenge Scores</h5>
+    <br>
+    <div>
+      <div class="text-center">Enter Code Challenge scores for each company:</div>
+
+      <form name="scoreForm">
+        <div class="row my-2 mx-auto" ng-repeat="proposal in proposals" ng-if="proposal.screenedIn">
+          <div class="col"></div>
+          <div class="col-2 pr-0">
+            <input class="scoreBox" name="input" type="number" min="0" max="{{ maxPoints }}" ng-model="proposal.scores.codechallenge" onclick="this.select()" />
+          </div>
+          <div class="col pl-0 text-left">
+            {{proposal.businessName | limitTo: 20 }}{{ proposal.businessName.length > 20 ? '...' : '' }}
+          </div>
+          <div class="col"></div>
+        </div>
+      </form>
+
+    </div>
+    <div class="my-3">
+      <div>Scores must be a number between 0 and {{ maxPoints }}</div>
+      <button ng-disabled="!scoreForm.$valid || scoreForm.$error.number" class="btn btn-primary float-right" data-ng-click="save()"><i
+        class="fas fa-lock"></i> Lock in Scores</button>
+      <button class="btn btn-default float-right" data-ng-click="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

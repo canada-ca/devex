@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h3>Update Image for {{ qqq.getSourceName() }}</h3>
+</div>
+<div class="modal-body">
+  <form class="signin">
+    <fieldset>
+      
+      <div ng-show="qqq.fileSelected" class="text-center">
+        <p>Crop your picture then press upload below:</p>
+        <div class="mx-auto h-200">
+          <ui-cropper canvas-scalemode="full-width" image="qqq.picFile | ngfDataUrl" result-image="croppedDataUrl" ng-init="croppedDataUrl=''" area-type="square">
+          </ui-cropper>
+        </div>
+      </div>
+
+      <div class="form-group text-center">
+        <img ng-src="{{qqq.fileSelected ? croppedDataUrl : qqq.getCurrentImageUrl()}}" alt="{{qqq.org.name}}" class="img-thumbnail user-profile-picture rounded"
+          ngf-drop>
+      </div>
+      
+      <div ng-show="!qqq.fileSelected" class="text-center form-group">
+        <span class="btn btn-default btn-file">
+          Select Picture (Max Size 1M) <input type="file" ngf-select="qqq.onSelectPicture($file)" ng-model="qqq.picFile" accept="image/*">
+        </span>
+      </div>
+      
+      <div ng-show="qqq.fileSelected" class="text-center form-group">
+        <button class="btn btn-primary" ng-click="qqq.upload(croppedDataUrl)">
+          Upload
+        </button>
+        <button class="btn btn-default" ng-click="qqq.fileSelected = false">
+          Cancel
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="qqq.quitnow()">Done</button>
+</div>

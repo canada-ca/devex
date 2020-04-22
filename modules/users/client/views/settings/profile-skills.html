@@ -1,155 +1,58 @@
 <form name="vm.userForm" id="vm.userForm" ng-submit="vm.updateUserProfile(vm.userForm.$valid)" novalidate autocomplete="off">
-	<div class="row">
-		<div class="col-cm-offset-1 col-sm-11">
-		<fieldset>
-			<form-input
-				class="col-sm-6"
-				ng-model="vm.user.website"
-				x-form="vm.userForm"
-				x-options='{
-					"title":"Website",
-					"id":"website",
-					"name":"website",
-					"placeholder":"website"
-				}'>
-			</form-input>
 
-			<form-input
-				class="col-sm-6"
-				ng-model="vm.user.github"
-				x-form="vm.userForm"
-				x-options='{
-					"title":"Github",
-					"id":"github",
-					"name":"github",
-					"placeholder":"github"
-				}'>
-			</form-input>
+  <h3 class="settings-panel-title">Capabilities &amp; Skills</h3>
+  <p>Let us know what you can do! <i>Sprint With Us</i> opportunities call for teams with these capabilities and
+    skills.</p>
 
-			<form-input
-				class="col-sm-6"
-				ng-model="vm.user.stackExchange"
-				x-form="vm.userForm"
-				x-options='{
-					"title":"Stack Exchange",
-					"id":"stackExchange",
-					"name":"stackExchange",
-					"placeholder":"stackExchange"
-				}'>
-			</form-input>
+  <fieldset>
+    <div class="form-group">
+      <uib-accordion close-others="false">
+        <div uib-accordion-group ng-repeat="capability in vm.capabilities">
+          <uib-accordion-heading>
+            <div data-automation-id="ListCapabilitiesSection-{{capability.name}}" class="w-100 h-100 py-0 my-0">
+              <span ng-if="vm.userHasCapability(capability)"><i class="fas fa-check-circle text-success"></i></span>
+              <span ng-if="!vm.userHasCapability(capability)"><i class="far fa-circle text-dark"></i></span>
+              {{capability.name}}
+            </div>
+          </uib-accordion-heading>
+          <div class="row">
 
-			<form-input
-				class="col-sm-6"
-				ng-model="vm.user.stackOverflow"
-				x-form="vm.userForm"
-				x-options='{
-					"title":"Stack Overflow",
-					"id":"stackOverflow",
-					"name":"stackOverflow",
-					"placeholder":"stackOverflow"
-				}'>
-			</form-input>
+            <div class="col py-3">
+              <div>Definition:</div>
+              <p ng-bind-html="capability.description"></p>
+            </div>
 
-			<form-input
-				class="col-sm-12"
-				ng-model="vm.user.linkedIn"
-				x-form="vm.userForm"
-				x-options='{
-					"title":"LinkedIn",
-					"id":"linkedIn",
-					"name":"linkedIn",
-					"placeholder":"linkedIn"
-				}'>
-			</form-input>
+            <div class="hidden-xs col-sm-1 py-3"></div>
 
-			<div class="row">
-				<div class="form-group col-sm-12">
+            <div class="col-xs-12 col-sm-4 py-3">
 
-					<uib-accordion close-others="true">
+              <div class="checkbox">
 
-						<div uib-accordion-group class="panel-default" ng-repeat="idnum in ['c01','c02','c03','c04','c05','c06','c07','c08','c09','c10','c11','c12','c13']" >
-							{{experienceField=idnum+'_experience';""}}
-							{{ratingField=idnum+'_years';""}}
-							{{userTagField=idnum+'_tags';""}}
-							{{capability=vm.capabilities.bykey[idnum];""}}
-							<uib-accordion-heading>
-								<small>
-									<i class="pull-left glyphicon" ng-class="{'glyphicon-check':vm.user[ratingField]>0, 'glyphicon-unchecked':vm.user[ratingField]===0}"></i>
-									&nbsp; &nbsp;
-									{{capability.text}}
-									&nbsp; &nbsp;
-									<span class="pull-right" ng-if="vm.user[ratingField]>0">{{vm.user[ratingField]}}{{vm.user[ratingField]>4?'+ years':' years'}}</span>
-									<!-- <span class="pull-right" uib-rating ng-model="vm.user[ratingField]" max="5" titles="['one', 'two', 'three', 'four', 'five plus']" read-only="true" ng-if="vm.user[experienceField]!==''" state-off="blank">&nbsp; &nbsp; {{vm.user[ratingField]}} years</span> -->
-								</small>
-							</uib-accordion-heading>
-							<form-display
-								class="col-sm-12"
-								x-options='{
-									"title":"Capability Description"
-								}'>
-								{{vm.capabilities.bykey[idnum].description}}
-							</form-display>
-							<br/>
-							<div class="row">
-								<div class="col-sm-12 form-group">
-									<form-display
-										class="col-sm-12"
-										x-options='{
-											"title":"Years Experience (1 to 5+)",
-											"name":"{{ratingField}}"
-										}'>
-										<div class="btn-group">
-											<label class="btn btn-success" ng-model="vm.user[ratingField]" uib-btn-radio="0">No Experience</label>
-											<label class="btn btn-success" ng-model="vm.user[ratingField]" uib-btn-radio="1">One</label>
-											<label class="btn btn-success" ng-model="vm.user[ratingField]" uib-btn-radio="2">Two</label>
-											<label class="btn btn-success" ng-model="vm.user[ratingField]" uib-btn-radio="3">Three</label>
-											<label class="btn btn-success" ng-model="vm.user[ratingField]" uib-btn-radio="4">Four</label>
-											<label class="btn btn-success" ng-model="vm.user[ratingField]" uib-btn-radio="5">Five or More</label>
-										</div>
-									</form-display>
-									<form-display
-										class="col-sm-12"
-										x-options='{
-											"title":"Experience Description"
-										}'>
-										<textarea
-											name="{{experienceField}}"
-											id="{{experienceField}}"
-											class="form-control"
-											placeholder="Your experience demonstrating this capability"
-											ng-model="vm.user[experienceField]">
-										</textarea>
-									</form-display>
-									<select-list
-										ng-model="vm.user[userTagField]"
-										class="col-sm-12"
-										x-type="arrayOfStrings"
-										x-values="capability.tags"
-										x-form="vm.userForm"
-										x-options='{
-											"title":"Specific Skills",
-											"id":"lkjasd",
-											"name":"lkjasd",
-											"single":false,
-											"listStyle":"list-inline"
-										}'>
-									</select-list>
-								</div>
-							</div>
-						</div>
+                <label>
+                  <input data-automation-id="ckbClaimCapability-{{capability.name}}" type="checkbox" ng-init="bool = vm.userHasCapability(capability)" ng-change="vm.toggleCapability(bool, capability)" ng-model="bool" />
+                  <strong>Claim this capability</strong>
+                </label>
+              </div>
 
-					</uib-accordion>
-				</div>
-			</div>
+              <div ng-if="capability.skills.length > 0 && vm.userHasCapability(capability)">
+                <p>Select all the <strong>preferred technical skills</strong> you possess:</p>
+                <div class="label-list">
+                  <label data-automation-id="preferredTechSkill-{{skill.name}}" class="label label-preferred-skill" ng-repeat="skill in capability.skills" ng-class="{'label-preferred-skill-selected': vm.userHasSkill(skill)}"
+                    ng-click="vm.toggleSkill(skill)">
+                    <span ng-bind="skill.name"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
 
+          </div>
+        </div>
+      </uib-accordion>
+    </div>
+  </fieldset>
 
-		</fieldset>
-		</div>
-	</div>
-	<br/>
-	<div class="row">
-		<div class="col-xs-12">
-			<button type="submit" class="btn btn-success">Update capabilities</button>
-		</div>
-	</div>
+  <div class="button-spacer">
+    <button data-automation-id="btnSaveChangesSkills" type="submit" class="btn btn-primary">Save Changes</button>
+  </div>
+
 </form>

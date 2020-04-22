@@ -1,0 +1,115 @@
+<div class="row p-3">
+  <div class="col">
+    <button class="close" data-ng-click="ppp.close()"><i class="fas fa-times"></i></button>
+    <div class="strong">{{ ppp.proposal.businessName }}</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <dl class="dl-horizontal">
+        <dt>Company:</dt>
+        <dd>{{ ppp.proposal.businessName }}<br />{{ ppp.proposal.businessAddress }}</dd>
+        <dt>Contact:</dt>
+        <dd>
+          {{ ppp.proposal.org.contactName }}<br />{{ ppp.proposal.org.contactPhone }}<br />{{
+            ppp.proposal.org.contactEmail
+          }}
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <hr />
+
+  <!-- Phases View -->
+  <div class="row">
+    <!-- Inception Phase View -->
+    <div class="col-xs-12 col-sm-4 text-center">
+      <div><i class="fas fa-map"></i> Inception</div>
+      <div class="my-2" ng-repeat="member in ppp.proposal.phases.inception.team">
+        <avatar-display size="35" url="member.profileImageURL"></avatar-display>
+        <name>{{ member.displayName }}</name>
+        <div>
+          <label ng-repeat="capability in member.capabilities" class="label label-cap-default {{capability.labelClass}}"
+            ><i class="fas fa-circle"></i> {{ capability.name }}</label
+          ><br />
+          <label ng-repeat="capabilitySkill in member.capabilitySkills" class="label label-preferred-skill mx-1">{{
+            capabilitySkill.name
+          }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- POC Phase View -->
+    <div class="col-xs-12 col-sm-4 text-center">
+      <div><i class="fa fa-rocket"></i> Proof of Concept</div>
+
+      <div class="my-2" ng-repeat="member in ppp.proposal.phases.proto.team">
+        <avatar-display size="35" url="member.profileImageURL"></avatar-display>
+        <name>{{ member.displayName }}</name>
+        <div>
+          <label ng-repeat="capability in member.capabilities" class="label label-cap-default {{capability.labelClass}}"
+            ><i class="fa fa-circle"></i> {{ capability.name }}</label
+          ><br />
+          <label ng-repeat="capabilitySkill in member.capabilitySkills" class="label label-preferred-skill mx-1">{{
+            capabilitySkill.name
+          }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Implementation Phase View -->
+    <div class="col-xs-12 col-sm-4 text-center">
+      <div><i class="fas fa-cogs"></i> Implementation</div>
+
+      <div class="my-2" ng-repeat="member in ppp.proposal.phases.implementation.team">
+        <avatar-display size="35" url="member.profileImageURL"></avatar-display>
+        <name>{{ member.displayName }}</name>
+        <div>
+          <label ng-repeat="capability in member.capabilities" class="label label-cap-default {{capability.labelClass}}"
+            ><i class="fa fa-circle"></i> {{ capability.name }}</label
+          ><br />
+          <label ng-repeat="capabilitySkill in member.capabilitySkills" class="label label-preferred-skill mx-1">{{
+            capabilitySkill.name
+          }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  <!-- References -->
+  <div class="row">
+    <div class="col">
+      <h4>References</h4>
+      <table class="table table-striped">
+        <tr ng-repeat="file in ppp.proposal.attachments">
+          <td class=" text-right"><i class="fas {{ ppp.getIconName(file.type) }}"></i></td>
+          <td class="text-left">{{ file.name }}</td>
+          <td class=" text-left">
+            <a href="/api/proposal/{{ppp.proposal._id}}/download/doc/{{file._id}}" target="_blank"
+              ><i class="fas fa-download"></i
+            ></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <hr />
+
+  <!-- Team Questions -->
+  <div class="row">
+    <div class="col">
+      <h4>Team Questions</h4>
+      <div ng-repeat="response in ppp.proposal.teamQuestionResponses">
+        <b>Question {{ $index + 1 }}: &nbsp;&nbsp;</b><span ng-bind-html="response.question"></span>
+        <b>Response {{ $index + 1 }}: &nbsp;&nbsp;</b><span ng-bind-html="response.response"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col m-3"><button class="btn btn-default float-right" data-ng-click="ppp.close()">Close</button></div>
+  </div>
+</div>

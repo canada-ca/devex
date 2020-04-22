@@ -1,5 +1,11 @@
-<section class="list-page">
-<div class="container" role="main">
-	<org-list orgs="vm.orgs" ></org-list>
+<div class="banner banner-important" ng-if="vm.userCanAdd || !vm.isLoggedIn">
+  Does your company have <a href="/capabilities">these capabilities</a>? 
+  <span ng-if="vm.userCanAdd">Register to qualify to apply on <span class="font-italic">Sprint With Us</span> opportunities!</span> 
+  <span ng-if="!vm.isLoggedIn">Sign in and register to qualify to apply on <span class="font-italic">Sprint With Us</span> opportunities!</span>
 </div>
+
+<section>
+  <div class="container">
+    <org-list orgs="vm.orgs"></org-list>
+  </div>
 </section>

@@ -1,0 +1,25 @@
+{
+	"defaultSeverity": "error",
+	"extends": ["tslint:recommended"],
+	"jsRules": {},
+	"rules": {
+		"indent": [true, "tabs", 4],
+		"quotemark": [true, "single", "avoid-escape"],
+		"trailing-comma": [
+			true,
+			{ "multiline": "never", "singleine": "never" }
+		],
+		"no-inferrable-types": true,
+		"object-literal-sort-keys": false,
+		"arrow-parens": false,
+		"interface-name": [false, "always-prefix"],
+		"semicolon": false,
+		"max-line-length": false,
+		"object-literal-key-quotes": false,
+		"no-shadowed-variable": false
+	},
+	"rulesDirectory": [],
+	"linterOptions": {
+		"exclude": ["**/node_modules/**"]
+	}
+}

@@ -1,0 +1,40 @@
+<div class="row py-3">
+  <div class="col-sm-6">
+    <h3>
+      Capabilities
+    </h3>
+  </div>
+  <div class="col-sm-6 float-right">
+    <span class="alert alert-warning float-right" ng-if="vm.canAdd && !vm.editingEnabled">Capability editing disabled for this instance of the application.</span>
+    <button ng-if="vm.canAdd" ng-disabled="!vm.editingEnabled" class="btn btn-primary float-right" ui-sref="capabilityadmin.create()" title="New">
+      <i class="fas fa-plus"></i> Add a Capability
+    </button>
+  </div>
+</div>
+
+<div class="row py-3">
+  <div class="col">
+    <div class="alert alert-warning">
+      <i class="fas fa-users"></i> <strong>Sprint With Us</strong> opportunities are for registered companies who can
+      supply teams with these capabilities. Claim the capabilities you possess in your <a href="/settings/skills">personal profile</a>.
+    </div>
+  </div>
+</div>
+
+<div class="row py-3" ng-if="!vm.capabilities.length" style="padding-top: 20px; padding-bottom: 20px;">
+  <div class="col">
+    <h4 class="text-muted">
+      No Capabilities right now. Check back soon!
+    </h4>
+  </div>
+</div>
+
+
+<div class="card-deck">
+  <div class="card my-3" ng-repeat="capability in vm.capabilities">
+    <div class="card-body" ui-sref="capabilities.view({ capabilityId: capability.code })">
+      <h5 data-automation-id="lstCapabilityEntry-{{capability.name}}" class="m-0 p-0 card-title" ng-bind="capability.name"></h5>
+    </div>
+  </div>
+</div>
+

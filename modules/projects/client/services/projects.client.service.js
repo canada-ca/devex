@@ -14,7 +14,7 @@
     }, {
       update: {
         method: 'PUT'
-      },
+	  },
       forProgram: {
         method: 'GET',
         url: '/api/projects/for/program/:programId',
@@ -23,11 +23,6 @@
       makeRequest: {
         method: 'GET',
         url :'/api/request/project/:projectId'
-      },
-      my: {
-        method: 'GET',
-        url: '/api/my/projects',
-        isArray: true
       },
       myadmin: {
         method: 'GET',

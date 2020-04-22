@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" ng-strict-di>
+
 <head>
+  <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-  <title page-title></title>
+  <title>{{title}}</title>
   <meta name="description" content="{{description}}">
   <meta name="fragment" content="!">
 
@@ -48,39 +50,9 @@
     ga('create', 'UA-91547471-1', 'auto');
     ga('send', 'pageview');
   </script>
-  <script>
-    // This code is for testing support
-    window.MYAPP = window.MYAPP || {};
-    window.MYAPP.waitForAngular = function() {
-        window.MYAPP.APP_READY = false;
-        function done(err) {
-            if (err) {
-                console.error('Waiting for Angular:', err);
-                return;
-            }
-            window.MYAPP.APP_READY = true;
-        }
-        var el = document.querySelector('html');
-        try {
-            if (!window.angular) {
-                throw new Error('Angular could not be found on the window');
-            }
-            if (angular.getTestability) {
-                angular.getTestability(el).whenStable(done);
-            } else {
-                if (!angular.element(el).injector()) {
-                    throw new Error('Root element (html) has no injector. This may mean it is not inside ng-app.');
-                }
-                angular.element(el).injector().get('$browser').notifyWhenNoOutstandingRequests(done);
-            }
-        } catch (err) {
-            done(err.message);
-        }
-    };
-  </script>
 </head>
 
-<body class="ng-cloak" id="page-top" >
+<body class="ng-cloak" id="page-top">
 
   <div ng-include="'/modules/core/client/views/header.client.view.html'"></div>
 
@@ -103,21 +75,12 @@
   <script type="text/javascript">
     var user = {{{ user }}};
     var env = "{{ env }}";
-    window.features = {{{ features }}};
+    var sessionTimeout = "{{ sessionTimeout }}";
+    var sessionTimeoutWarning = "{{ sessionTimeoutWarning }}";
+    var allowCapabilityEditing = "{{ allowCapabilityEditing }}" === 'true';
+    var recaptchaSiteId = "{{ googleRecaptchaSiteID }}";
   </script>
 
-  <!--Load The Socket.io File-->
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-
-  <!--Application JavaScript Files-->
-    {{#each jsFiles}}<script type="text/javascript" src="/{{this}}"></script>{{/each}}
-
-  <!--owasp config sync-->
-  <script type="text/javascript">
-    var sharedConfig = {{{ sharedConfig }}};
-    owaspPasswordStrengthTest.config(sharedConfig.owasp);
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   {{#if livereload}}
   <!--Livereload script rendered -->
   <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>

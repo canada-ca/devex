@@ -1,30 +1,31 @@
-<br>	
-	<div class="container" role="main">
-		<div class="row">
-			<nav class="col-xs-12">
-				<uib-tabset active>
-					<li ui-sref-active="active">
-						<a id="settings.profile" href ng-click="goTo('settings.profile')" translate="PROFILE_PUBLIC_PROFILE">Public Profile</a>
-					</li>
-					<li ui-sref-active="active">
-						<a id="settings.privacy" href ng-click="goTo('settings.privacy')" translate="PROFILE_PRIVACY_NOTIFICATIONS">Privacy & Notifications</a>
-					</li>
-					<li ui-sref-active="active" ng-if="vm.features.swu">
-						<a id="settings.skills" href ng-click="goTo('settings.skills')">Capabilities</a>
-					</li>
-					<li ui-sref-active="active" ng-if="vm.features.swu">
-						<a id="settings.messages" href ng-click="goTo('settings.messages')">Messages <span class="badge">42</span></a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-		<div class="panel">
-			<div class="panel-body">
-				<div ui-view></div>
-			</div>
-		</div>
-		<div class="well well-gray">
-			<p class="small"><b translate="PROFILE_COLLECTION_NOTICE">Collection Notice</b></p>
-			<p class="small" translate="PROFILE_COLLECTION_NOTICE_DESC">This personal information is collected by the Ministry of Citizens’ Services under s.26(c) of the Freedom of Information and Protection of Privacy Act (FOIPPA) for the purposes of communications with registered users. Should you have any questions about the collection of this personal information please contact: Peter Watkins, Executive Director, BC Developers’ Exchange and DevOps, Ministry of Citizens’ Services, 250-514-2739.</p>
-		</div>
-	</div>
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-xs-12 col-sm-3">
+      <section>
+        <ul class="nav nav-pills flex-column">
+          <li ui-sref-active="active nav-item">
+            <a class="nav-link" id="settings.profile" ui-sref="settings.profile">About Me</a>
+          </li>
+          <li ui-sref-active="active nav-item">
+            <a class="nav-link" id="settings.privacy" ui-sref="settings.privacy">Notifications & Privacy</a>
+          </li>
+          <li ui-sref-active="active nav-item">
+            <a class="nav-link" id="settings.skills" ui-sref="settings.skills">My Capabilities & Skills</a>
+          </li>
+          <li ui-sref-active="active nav-item">
+            <a class="nav-link" id="settings.messages" ui-sref="settings.messages">Messages</a>
+          </li>
+          <li ui-sref-active="active nav-item">
+            <a class="nav-link" id="settings.affiliations" ui-sref="settings.affiliations">Company Affiliations</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <div class="hidden-xs col-sm-1"></div>
+    <div class="col-xs-12 col-sm-8">
+      <section class="fill-view">
+        <div ui-view></div>
+      </section>
+    </div>
+  </div>
+</div>

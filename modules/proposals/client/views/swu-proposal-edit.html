@@ -1,0 +1,131 @@
+<!-- // Banner if Proposal is Submitted // -->
+<div class="banner banner-success" ng-if="ppp.proposal.status === 'Submitted'">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <span class="strong"><i class="fas fa-check-circle"></i> This proposal has been submitted!</span> &nbsp;&nbsp;
+        You can make updates or withdraw your proposal until <span class="strong"
+          ng-bind="ppp.formatDate(ppp.opportunity.deadline, true)"></span>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- // Banner if Proposal is in Draft // -->
+<div class="banner banner-important" ng-if="ppp.proposal.status === 'Draft'">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <span class="strong"><i class="fas fa-file"></i> Your Proposal is in DRAFT.</span>&nbsp;&nbsp; Submit before
+        <span class="strong"><span ng-bind="ppp.formatDate(ppp.opportunity.deadline, true)"></span></span>
+        to be considered for this opportunity!
+        <span ng-if="!ppp.proposal.isAcceptedTerms"><br>Before you can submit your Proposal, you must agree to the
+          Terms.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="main-section bg-secondary">
+
+  <form id="proposalform" name="ppp.proposalForm" class="form" novalidate>
+
+    <div class="bg-light rounded p-0">
+
+      <div class="bg-light rounded p-3 font-weight-bold">
+        <span>Proposal from:</span> {{ppp.org.name}}
+        <a class="btn btn-text-only float-right" ng-click="ppp.close()" title="Close Proposal" aria-label="Close">
+          <i class="fas fa-lg fa-times"></i>
+        </a>
+      </div>
+
+      <uib-tabset active="ppp.activeTab">
+
+        <uib-tab index="1">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-evaluation">
+            1. Evaluation
+          </uib-tab-heading>
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-evaluation.html'"></div>
+        </uib-tab>
+
+        <uib-tab index="2">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-terms">
+            2. Terms <i class="far fa-handshake"></i>
+          </uib-tab-heading>
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-terms.html'"></div>
+        </uib-tab>
+
+        <uib-tab index="3">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-selectteam">
+            3. Select Team <i class="fas fa-users"></i>
+          </uib-tab-heading>
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-team.html'"></div>
+        </uib-tab>
+
+        <uib-tab index="4">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-pricing">
+            4. Pricing <i class="fas fa-dollar-sign"></i>
+          </uib-tab-heading data-automation-id="tab-swu-proposal-pricing">
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-pricing.html'"></div>
+        </uib-tab>
+
+        <uib-tab index="5">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-questions">
+            5. Team Questions <i class="fas fa-pencil-alt"></i>
+          </uib-tab-heading>
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-team-questions.html'"></div>
+        </uib-tab>
+
+        <!-- // This originally was the Attachments tab. For 1st SWU opportunity, we're going to ask proponents to upload their references on this tab. // -->
+        <uib-tab index="6">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-references">
+            6. References
+          </uib-tab-heading>
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-references.html'"></div>
+        </uib-tab>
+
+        <!-- Addenda tab -->
+        <uib-tab index="7">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-addenda">
+            7. Addenda
+          </uib-tab-heading>
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-addenda.html'"></div>
+        </uib-tab>
+
+        <!-- // New Review & Submit tab // -->
+        <uib-tab index="8">
+          <uib-tab-heading data-automation-id="tab-swu-proposal-review">
+            8. Review &amp; Submit <i class="fas fa-paper-plane"></i>
+          </uib-tab-heading>
+          <div ng-include="'/modules/proposals/client/views/swu-proposal-edit-submit.html'"></div>
+        </uib-tab>
+
+
+      </uib-tabset>
+
+      <div class="bg-light rounded px-3 py-2">
+        <div class="row">
+          <div class="col">
+            <button type="button" data-automation-id="btnResubmitSWUProposal" class="btn btn-primary float-right" ng-click="ppp.submit()" ng-if="ppp.proposal.status === 'Submitted'"><i
+                class="fas fa-save"></i> Resubmit Proposal</button>
+            <button type="button" data-automation-id="btnSavesSWUChanges" class="btn btn-primary float-right" ng-click="ppp.save()"
+              ng-if="ppp.proposal.status === 'New' || ppp.proposal.status === 'Draft'"><i class="fas fa-save"></i> Save
+              Changes</button>
+            <button ng-if="ppp.proposal.status === 'Draft' || ppp.proposal.status === 'Submitted'" type="button" data-automation-id="btnDeleteSWUProposal" class="btn btn-text-only"
+              data-ng-click="ppp.delete()" uib-tooltip="This will permanently delete the proposal"><i
+                class="fas fa-trash"></i> Delete This Proposal</button>
+            <button ng-if="ppp.proposal.status === 'Submitted'" type="button" data-automation-id="btnWithdrawSWUProposal" class="btn btn-text-only" ng-click="ppp.withdraw()"
+              uib-tooltip="If you withdraw your proposal, your work will still be saved in DRAFT if you want to submit it later."><i
+                class="fas fa-ban"></i> Withdraw Proposal</button>
+            <a ng-if="ppp.proposal._id" data-automation-id="lnkExportSWUProposal" class="btn btn-text-only" href="/api/opportunities/{{ppp.opportunity._id}}/myProposalArchive"
+              target="_blank"><i class="fas fa-file"></i> Export Proposal</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+  </form>
+
+</section>

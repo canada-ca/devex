@@ -1,10 +1,18 @@
 package pages.app
 import geb.Page
-import extensions.AngularJSAware
+//import extensions.AngularJSAware
 
-class ProgramsPage extends Page implements AngularJSAware {
-	static at = { angularReady && title.startsWith("BCDevExchange - Programs List") }
-	//static at = { title == "BCDevExchange - Programs List" }
+//class ProgramsPage extends Page implements AngularJSAware {
+class ProgramsPage extends Page  {
+	//static at = { angularReady && title.startsWith("BCDevExchange - Programs List") }
+	//static at = { title.startsWith("BCDevExchange - Programs List") }
+ static at = { title.startsWith("BCDevExchange - The BC Developer") }
+
+
 	static url = "programs"
-	static content = {}
+	static content = {
+    ListProgramButton(wait: 2) { $('button[data-automation-id ~= "button-list-a-program"]') }
+		ListedPrograms(required: false, wait: 2) { $('data-automation-id':"listedProgram") }
+
+  }
 }

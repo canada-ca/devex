@@ -6,3 +6,28 @@
 .proposal-form-container p {
 	text-align: left;
 }
+.proposal-searchbox-wrapper {
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+}
+.proposal-searchbox {
+	width: 40%;
+	margin-top: 1em;
+	min-width: 160px;
+}
+.team-selection-wrapper {
+	max-height: 330px;
+	overflow-y: scroll;
+}
+.pagination-wrapper {
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+}
+.btn-remove-attachment:hover {
+	cursor: pointer;
+}
+.update-proposal-link {
+	display: inline-block;
+}

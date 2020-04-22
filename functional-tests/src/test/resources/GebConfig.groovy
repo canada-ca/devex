@@ -26,23 +26,35 @@ environments {
 	// run via “./gradlew chromeTest”
 	// See: https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
 	chrome {
-		driver = { new ChromeDriver() }
+		driver = { 
+			// System.setProperty('webdriver.chrome.driver', '/usr/local/bin/chromedriver')
+			new ChromeDriver() 
+		}
 	}
 
 	// run via “./gradlew chromeHeadlessTest”
 	// See: https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
 	chromeHeadless {
 		driver = {
+			// System.setProperty('webdriver.chrome.driver', '/usr/local/bin/chromedriver')
+			// System.setProperty('webdriver.chrome.logfile', './log.txt')
+			// System.setProperty('webdriver.chrome.verboseLogging', 'true')
 			ChromeOptions o = new ChromeOptions()
-			o.addArguments('headless')
-			o.addArguments('disable-gpu') 
-			o.addArguments('no-sandbox')
+			o.addArguments("--enable-features=NetworkService,NetworkServiceInProcess")
+			o.addArguments('--headless')
+			o.addArguments('--no-sandbox')
+			o.addArguments('--window-size=1200,1100')
+			o.addArguments("--proxy-server='direct://'", "--proxy-bypass-list=*")
+
 			new ChromeDriver(o)
 		}
 	}
 	
 	// run via “./gradlew firefoxTest”
 	// See: https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver
+	// See also https://www.guru99.com/gecko-marionette-driver-selenium.html
+
+
 	firefox {
 		driver = { new FirefoxDriver() }
 	}
@@ -54,7 +66,7 @@ environments {
 			new FirefoxDriver(o)
 		}
 	}
-	
+/*	
 	// run via “./gradlew ieTest”
 	// See: https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver
 	ie {
@@ -78,6 +90,7 @@ environments {
 	safari {
 		driver = { new SafariDriver() }
 	}
+*/	
 }
 
 // To run the tests with all browsers just run “./gradlew test”
@@ -89,12 +102,12 @@ baseNavigatorWaiting = true
 def env = System.getenv()
 baseUrl = env['BASEURL']
 if (!baseUrl) {
-	baseUrl = "http://platform-dev.pathfinder.gov.bc.ca/"
+	baseUrl = "http://localhost:3000/"
 }
 
 println "BaseURL: ${baseUrl}"
 println "--------------------------"
 
 cacheDriverPerThread = true
-quitCachedDriverOnShutdown = true
+quitCachedDriverOnShutdown = true 
 

@@ -1,22 +1,91 @@
-<div ng-switch on="qaz.case">
+<!-- // Sprint With Us // -->
+<div ng-if="$ctrl.opportunity.opportunityTypeCd === 'sprint-with-us'">
+  <!-- // User is signed in an has a company that meets RFQ requirements // -->
+  <div class="row" ng-if="$ctrl.userState === $ctrl.userStates.CAN_ADD">
+    <div class="col">
+      <button id="proposaladmin.create" ui-sref="proposaladmin.createswu({ opportunityId: $ctrl.opportunity._id})" class="btn btn-primary float-right">
+        <i class="fas fa-paper-plane"></i> Start a Proposal
+      </button>
+    </div>
+  </div>
 
-<button ng-if="isEnglish()" ng-switch-when="canadd" class="btn btn-solo btn-success btn-lg" ui-sref="en.proposaladmin.create({opportunityId:qaz.opportunity._id})" title="Apply">
-	<i class="fa fa-sign-in"></i> Create Proposal
-</button>
-<button ng-if="isFrench()" ng-switch-when="canadd" class="btn btn-solo btn-success btn-lg" ui-sref="fr.proposaladmin.create({opportunityId:qaz.opportunity._id})" title="Apply">
-	<i class="fa fa-sign-in"></i> Create Proposal
-</button>
+  <!-- // All other cases (user not signed in; no company; company doesn't meet RFQ requirements) // -->
+  <div class="row" ng-if="$ctrl.userState !== $ctrl.userStates.CAN_ADD && $ctrl.userState !== $ctrl.userStates.CAN_EDIT">
+    <div class="col">
+      <a class="btn btn-primary" style="margin-bottom: 10px" href="/sprintwithus-howtoapply"><i class="fas fa-lg fa-info-circle"></i>
+        &nbsp;How to use this website to respond to the Sprint With Us RFQ</a>
+    </div>
+  </div>
 
-<button ng-if="isEnglish()" ng-switch-when="canedit" class="btn btn-solo btn-success btn-lg" ui-sref="en.proposaladmin.edit({proposalId:qaz.proposal._id, opportunityId:qaz.opportunity._id})" title="Update Application">
-	<i class="fa fa-sign-in"></i> Edit Proposal
-</button>
-<button ng-if="isFrench()" ng-switch-when="canedit" class="btn btn-solo btn-success btn-lg" ui-sref="fr.proposaladmin.edit({proposalId:qaz.proposal._id, opportunityId:qaz.opportunity._id})" title="Update Application">
-	<i class="fa fa-sign-in"></i> Edit Proposal
-</button>
+  <!-- // If user has started a Proposal // -->
+  <div class="row" ng-if="$ctrl.userState === $ctrl.userStates.CAN_EDIT">
+    <div class="col">
+      <!-- If Proposal has been SUBMITTED -->
+      <div class="alert alert-success" ng-if="$ctrl.proposal.status === 'Submitted'">
+        <span class="strong"><i class="fas fa-lg fa-check-circle"></i>&nbsp; Your Proposal has been submitted!</span>
+        &nbsp; You can make updates or withdraw your proposal until <span class="strong"
+          ng-bind="$ctrl.formatDate($ctrl.opportunity.deadline, true)"></span>. &nbsp;
+        <div class="update-proposal-link">
+          <a id="proposaladmin.edit" ui-sref="proposaladmin.editswu({ proposalId: $ctrl.proposal._id, opportunityId: $ctrl.opportunity._id })"><i
+              class="fas fa-pencil-alt"></i> Update my proposal</a>
+        </div>
+      </div>
+      <!-- If Proposal is in DRAFT -->
+      <div class="col">
+        <div class="alert alert-warning" ng-if="$ctrl.proposal.status === 'Draft'">
+          <span class="strong"><i class="fas fa-file"></i>&nbsp;You have a Proposal in DRAFT!</span> &nbsp;&nbsp;
+          Submit
+          before <span class="strong" ng-bind="$ctrl.formatDate($ctrl.opportunity.deadline, true)"></span>
+          to be considered for this opportunity. &nbsp;
+          <div class="update-proposal-link">
+            <a id="proposaladmin.edit" ui-sref="proposaladmin.editswu({ proposalId: $ctrl.proposal._id, opportunityId: $ctrl.opportunity._id})"><i
+                class="fas fa-pencil-alt"></i> Update my Proposal</a>
+          </div>
+        </div>
 
-<button ng-switch-when="guest" class="btn btn-solo btn-success btn-lg" ng-click="goTo('authentication.signin')" title="Apply">
-	<i class="fa fa-sign-in"></i> Sign up or log in to submit a proposal
-</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
-<div ng-switch-default></div>
+<!-- // Code With Us // -->
+<div ng-if="$ctrl.opportunity.opportunityTypeCd !== 'sprint-with-us'">
+  <div class="row" ng-if="$ctrl.userState === $ctrl.userStates.CAN_ADD">
+    <div class="col px-0 pb-3">
+      <button id="proposaladmin.create" ui-sref="proposaladmin.createcwu({ opportunityId: $ctrl.opportunity._id })" class="btn btn-primary float-right">
+        <i class="fas fa-paper-plane"></i> Start a Proposal
+      </button>
+    </div>
+  </div>
+
+  <!-- // If user has started a Proposal // -->
+  <div class="row" ng-if="$ctrl.userState === $ctrl.userStates.CAN_EDIT">
+
+    <!-- If Proposal has been SUBMITTED -->
+    <div class="alert alert-success" ng-if="$ctrl.proposal.status === 'Submitted'">
+      <div class="col">
+        <span class="strong"><i class="fas fa-lg fa-check-circle"></i>&nbsp; Your Proposal has been submitted!</span>
+        &nbsp;You can make updates or withdraw your Proposal until <span class="strong" ng-bind="$ctrl.formatDate($ctrl.opportunity.deadline, true)"></span>.
+        &nbsp;
+        <div class="update-proposal-link">
+          <a id="proposaladmin.edit" ui-sref="proposaladmin.editcwu({ proposalId: $ctrl.proposal._id, opportunityId: $ctrl.opportunity._id })"><i
+              class="fas fa-pencil-alt"></i> Update my Proposal</a>
+        </div>
+      </div>
+    </div>
+    <!-- If Proposal is in DRAFT -->
+    <div class="col">
+      <div class="alert alert-warning" ng-if="$ctrl.proposal.status === 'Draft'">
+        <span class="strong"><i class="fas fa-file"></i>&nbsp;You have a Proposal in DRAFT!</span> &nbsp;Submit before 
+        <span class="strong" ng-bind="$ctrl.formatDate($ctrl.opportunity.deadline, true)"></span>
+        to be considered for this opportunity. &nbsp;
+        <div class="update-proposal-link">
+          <a id="proposaladmin.edit" ui-sref="proposaladmin.editcwu({ proposalId: $ctrl.proposal._id, opportunityId: $ctrl.opportunity._id })"><i
+              class="fas fa-pencil-alt"></i> Update my Proposal</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

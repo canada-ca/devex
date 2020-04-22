@@ -1,3 +1,7 @@
+<section class="bg-secondary" role=" main">
+  <form id="programForm" warn-on-exit name="vm.form.programForm" class="form" ng-submit="vm.save(vm.form.programForm.$valid)"
+    novalidate>
+    <div class="bg-light rounded p-0">
 
 <section class="static-page">
 <div class="container" role="main">
@@ -26,10 +30,11 @@
 				<div class="form-group" show-errors>
 					<label class="control-label required" for="title" aria-required="true"><span translate="OPP_SHORT_TITLE_LABEL">Title</span> ({{ "ENGLISH" | translate }})</label>
 
-					<i class="glyphicon glyphicon-question-sign input-help-source" ng-click="stitle = !stitle"></i>
-					<div class="input-help alert alert-info" ng-show="stitle">
-						Help Text
-					</div>
+      <div class="row m-4">
+        <div class="col">
+          <fieldset>
+            <div class="form-group">
+              <label class="control-label" for="title">Title</label>
 
 					<input name="title" type="text" ng-model="vm.program.title" id="title" class="form-control" placeholder="{{ 'OPP_SHORT_TITLE_LABEL' | translate }}" required aria-required="true">
 					<div ng-messages="vm.form.programForm.title.$error" role="alert"></div>
@@ -61,10 +66,14 @@
 				<div class="form-group" show-errors>
 					<label class="control-label required" for="short" aria-required="true"><span translate="TEAM_SHORT_DESCRIPTION">Short Description</span> ({{ "ENGLISH" | translate }})</label>
 
-					<i class="glyphicon glyphicon-question-sign input-help-source" ng-click="ssdesc = !ssdesc"></i>
-					<div class="input-help alert alert-info" ng-show="ssdesc">
-						Help Text
-					</div>
+              <input data-automation-id="text-program-title" name="title" type="text" ng-model="vm.program.title" id="title"
+                class="form-control" placeholder="Title" required>
+              <div ng-messages="vm.form.programForm.title.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">A program title is required.</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="short">Short Description</label>
 
 					<textarea name="short" data-ng-model="vm.program.short" id="short" class="form-control" cols="30" rows="3" placeholder="{{ 'TEAM_SHORT_DESCRIPTION_PLACEHOLDER' | translate }}" required aria-required="true"></textarea>
 				</div>
@@ -81,10 +90,12 @@
 				<div class="form-group">
 					<label class="control-label" for="description">Description ({{ "ENGLISH" | translate }})</label>
 
-					<i class="glyphicon glyphicon-question-sign input-help-source" ng-click="sdesc = !sdesc"></i>
-					<div class="input-help alert alert-info" ng-show="sdesc">
-						Help Text
-					</div>
+              <textarea data-automation-id="text-program-short-description" name="short" data-ng-model="vm.program.short"
+                id="short" class="form-control" cols="30" rows="3" placeholder="A short description of your program's mandate or mission"
+                required></textarea>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="description">Description</label>
 
 					<!-- <textarea name="description" data-ng-model="vm.program.description" id="description" class="form-control" cols="30" rows="10" placeholder="A full description of the program"></textarea> -->
 					<textarea
@@ -127,10 +138,10 @@
 				<div class="form-group">
 					<label class="control-label" for="website" translate="TEAM_WEBSITE">Website</label>
 
-					<i class="glyphicon glyphicon-question-sign input-help-source" ng-click="swebsite = !swebsite"></i>
-					<div class="input-help alert alert-info" ng-show="swebsite">
-						Help Text
-					</div>
+              <textarea name="description" id="description" data-automation-id="text-program-description" class="form-control input-sm"
+                ui-tinymce="vm.tinymceOptions" placeholder="A fuller description..." ng-model="vm.program.description">
+								</textarea>
+            </div>
 
 					<input name="website" type="text" ng-model="vm.program.website" id="website" class="form-control" placeholder="{{ 'TEAM_WEBSITE' | translate }}" required>
 				</div>
@@ -196,6 +207,4 @@
 	</div>
 	</div>
   </form>
-</div>
 </section>
-
