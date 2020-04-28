@@ -7,7 +7,7 @@ import { IUser } from '../../../users/shared/IUserDTO';
 import { IMenuService } from '../services/MenuService';
 
 class HeaderController implements IController {
-	public static $inject = ['$rootScope', '$scope', 'AuthenticationService', 'MenuService', 'MessagesService', '$uibModal', 'Idle'];
+	public static $inject = ['$rootScope', '$scope', 'AuthenticationService', 'MenuService', 'MessagesService', '$uibModal', 'Idle', '$translate', '$location'];
 	public accountMenu: any;
 	public isCollapsed: boolean;
 	public menu: any;
@@ -70,7 +70,46 @@ class HeaderController implements IController {
 			this.refreshHeader();
 		});
 
-		this.$scope.$on('$stateChangeSuccess', this.stateChangeSuccess);
+		this.$rootScope.$on('$stateChangeSuccess', this.stateChangeSuccess);
+
+		this.$rootScope.$on('$translateChangeSuccess', function(){
+			var lang = $translate.use();
+			this.$rootScope.lang = lang;
+			document.documentElement.lang = lang;
+		});
+
+		this.$rootScope.isHomePage = function() {
+			var path = $location.path();
+			return (! path) || path === '/' || path === '/en' || path === '/fr';
+		};
+
+		this.$rootScope.isEnglish = function() {
+			return (this.$translate.use() === 'en');
+		};
+
+		this.$rootScope.isFrench = function() {
+			return (this.$translate.use() === 'fr');
+		};
+
+		this.$rootScope.changeLanguage = function() {
+			var newLang = ($translate.use() === 'fr') ? 'en' : 'fr';
+			var currentState = $state.current.name;
+
+			var params = {};
+			if ($state.params) {
+				params = $state.params;
+				params.lang = newLang;
+			}
+
+			$translate.use(newLang).then(function () {
+				$state.go(newLang + currentState.slice(2), params);
+			});
+		}
+
+		this.$rootScope.goTo = function(state){
+			var lang = $translate.use();
+			$state.go(lang + '.' + state);
+		}
 	}
 
 	private setupIdleTimeout(): void {

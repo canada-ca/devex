@@ -21,6 +21,13 @@ class CoreClientAdminRouter {
 			template: '<ui-view autoscroll="true"/>',
 			data: {
 				roles: ['admin']
+				},
+				params: {
+					lang: {
+						value: function($translate){
+							return $translate.proposedLanguage() || $translate.use();
+					}
+				}
 			}
 		}
 	}

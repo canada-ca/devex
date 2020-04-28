@@ -8,6 +8,7 @@ import 'angular-mocks';
 import 'angular-resource';
 import 'angular-sanitize';
 import 'angular-translate';
+import 'angular-translate-loader-static-files';
 import 'angular-ui-notification';
 import 'angular-ui-tinymce';
 import 'bootstrap';

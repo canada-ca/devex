@@ -7,12 +7,28 @@ class CoreClientRouter {
 	public static $inject = ['$stateProvider', '$urlRouterProvider'];
 
 	private homeState: Ng1StateDeclaration = {
-		url: '/',
+		url: '/en',
 		templateUrl: '/modules/core/client/views/home.client.view.html',
 		controller: 'HomeController',
 		controllerAs: 'vm',
 		ncyBreadcrumb: {
-			label: 'Home'
+			label: '{{ "HOME" | translate }}'
+		},
+		params: {
+			lang: 'en'
+		}
+	};
+
+	private homeStateFr: Ng1StateDeclaration = {
+		url: '/fr',
+		templateUrl: '/modules/core/client/views/home.client.view.html',
+		controller: 'HomeController',
+		controllerAs: 'vm',
+		ncyBreadcrumb: {
+			label: '{{ "HOME" | translate }}'
+		},
+		params: {
+			lang: 'fr'
 		}
 	};
 
@@ -183,6 +199,7 @@ class CoreClientRouter {
 
 		// Set up core routes
 		this.$stateProvider.state('home', this.homeState);
+		this.$stateProvider.state('home-fr', this.homeStateFr);
 		this.$stateProvider.state('not-found', this.notFoundState);
 		this.$stateProvider.state('bad-request', this.badRequestState);
 		this.$stateProvider.state('forbidden', this.forbiddenState);
