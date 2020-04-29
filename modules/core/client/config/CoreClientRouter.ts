@@ -2,17 +2,34 @@
 
 import { Ng1StateDeclaration, StateParams, StateProvider, StateService, UrlRouterProvider } from '@uirouter/angularjs';
 import angular, { auto } from 'angular';
+import { ITranslateService } from 'angular-translate';
 
 class CoreClientRouter {
 	public static $inject = ['$stateProvider', '$urlRouterProvider'];
 
 	private homeState: Ng1StateDeclaration = {
-		url: '/',
+		url: '/en',
 		templateUrl: '/modules/core/client/views/home.client.view.html',
 		controller: 'HomeController',
 		controllerAs: 'vm',
 		ncyBreadcrumb: {
 			label: 'Home'
+		},
+		params: {
+			lang: 'en'
+		}
+	};
+
+	private homeStateFr: Ng1StateDeclaration = {
+		url: '/fr',
+		templateUrl: '/modules/core/client/views/home.client.view.html',
+		controller: 'HomeController',
+		controllerAs: 'vm',
+		ncyBreadcrumb: {
+			label: 'Maison'
+		},
+		params: {
+			lang: 'fr'
 		}
 	};
 
@@ -97,7 +114,16 @@ class CoreClientRouter {
 	};
 
 	private codeWithUsState: Ng1StateDeclaration = {
-		url: '/codewithus',
+		url: '/en/codewithus',
+		templateUrl: '/modules/core/client/views/codewithus.view.html',
+		data: {
+			ignoreState: true,
+			pageTitle: 'Code With Us'
+		}
+	};
+
+	private codeWithUsStateFr: Ng1StateDeclaration = {
+		url: '/fr/codewithus',
 		templateUrl: '/modules/core/client/views/codewithus.view.html',
 		data: {
 			ignoreState: true,
@@ -181,15 +207,15 @@ class CoreClientRouter {
 		// Set up route handling
 		this.$urlRouterProvider.otherwise(this.urlRouteNotFoundHandler);
 
-		// Set up core routes
-		this.$stateProvider.state('home', this.homeState);
+		// Set up English core routes
+		this.$stateProvider.state('enhome', this.homeState);
 		this.$stateProvider.state('not-found', this.notFoundState);
 		this.$stateProvider.state('bad-request', this.badRequestState);
 		this.$stateProvider.state('forbidden', this.forbiddenState);
 		this.$stateProvider.state('disclaimer', this.disclaimerState);
 		this.$stateProvider.state('privacy', this.privacyState);
 		this.$stateProvider.state('accessibility', this.accessibilityState);
-		this.$stateProvider.state('codewithus', this.codeWithUsState);
+		this.$stateProvider.state('encodewithus', this.codeWithUsState);
 		this.$stateProvider.state('codewithusps', this.codeWithUsPsState);
 		this.$stateProvider.state('sprintwithus', this.sprintWithUs);
 		this.$stateProvider.state('about', this.aboutState);
@@ -197,6 +223,10 @@ class CoreClientRouter {
 		this.$stateProvider.state('template', this.templateState);
 		this.$stateProvider.state('sprintwithus-howtoapply', this.sprintWithUsHowToApplyState);
 		// this.$stateProvider.state('bctechsummit', this.techSummitState);
+
+		// Set up French core routes
+		this.$stateProvider.state('frhome', this.homeStateFr);
+		this.$stateProvider.state('frcodewithus', this.codeWithUsStateFr);
 	}
 
 	private urlRouteNotFoundHandler($injector: auto.IInjectorService): void {

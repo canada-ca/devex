@@ -34,10 +34,11 @@ class ApplicationConfiguration implements IApplicationConfiguration {
 			'ngSanitize',
 			'ui.bootstrap',
 			'ng-currency',
-			'uiCropper'
+			'uiCropper',
+			'pascalprecht.translate'
 		];
 
-		this.bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider', '$uiViewScrollProvider'];
+		this.bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider', '$uiViewScrollProvider', '$translateProvider'];
 
 		// Configure any third party modules that require it
 		this.configureThirdPartyModules();
@@ -65,7 +66,8 @@ class ApplicationConfiguration implements IApplicationConfiguration {
 		$locationProvider: ILocationProvider,
 		$httpProvider: IHttpProvider,
 		$logProvider: ILogProvider,
-		$uiViewScrollProvider: UIViewScrollProvider
+		$uiViewScrollProvider: UIViewScrollProvider,
+		$translateProvider: ITranslateProvider
 	) {
 		$locationProvider
 			.html5Mode({
@@ -82,6 +84,11 @@ class ApplicationConfiguration implements IApplicationConfiguration {
 		$logProvider.debugEnabled(this.applicationEnvironment !== 'production');
 
 		$uiViewScrollProvider.useAnchorScroll();
+
+		$translateProvider.useStaticFilesLoader({
+			prefix: '/i18n/',
+			suffix: '.json'
+		}).preferredLanguage('en');
 	}
 
 	private configureThirdPartyModules(): void {

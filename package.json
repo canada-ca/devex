@@ -34,6 +34,8 @@
     "angular-mocks": "^1.7.5",
     "angular-resource": "^1.7.5",
     "angular-sanitize": "^1.7.5",
+    "angular-translate": "^2.18.2",
+    "angular-translate-loader-static-files": "^2.18.2",
     "angular-ui-bootstrap": "~1.2.1",
     "angular-ui-notification": "~0.3.6",
     "angular-ui-tinymce": "0.0.19",

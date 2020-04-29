@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
   <div class="container" ng-controller="HeaderController as vm">
     <div class="navbar-header">
-      <a href="/" id="home"><img class="navbar-brand" src="/modules/core/client/img/logo/new-logo-white.svg" alt="BCDevExchange"
+      <a id="home" href ng-click="goTo('home')"><img class="navbar-brand" src="/modules/core/client/img/logo/new-logo-white.svg" alt="BCDevExchange"
           ui-sref="home"></a>
       <button type="button" class="navbar-toggler" ng-click="vm.isCollapsed = !vm.isCollapsed">
         <span class="navbar-toggler-icon"></span>
@@ -41,6 +41,8 @@
             <i class="fab fa-lg fa-github" aria-hidden="true"></i> Sign In</a>
         </li>
       </ul>
+
+<a href ng-click="changeLanguage()" translate="CHANGE_LANGUAGE">FR (Translate test)</a>
 
       <!-- Messaging & User widget -->
       <ul class="nav navbar-nav ml-auto" ng-show="vm.user">

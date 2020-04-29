@@ -1,13 +1,14 @@
 'use strict';
 
-import angular, { IController, idle, IRootScopeService, IScope, ui } from 'angular';
+import angular, { IController, idle, IRootScopeService, IScope, IState, ui} from 'angular';
+import { ITranslateService } from 'angular-translate';
 import { IMessagesService } from '../../../messages/client/services/MessagesService';
 import { IAuthenticationService } from '../../../users/client/services/AuthenticationService';
 import { IUser } from '../../../users/shared/IUserDTO';
 import { IMenuService } from '../services/MenuService';
 
 class HeaderController implements IController {
-	public static $inject = ['$rootScope', '$scope', 'AuthenticationService', 'MenuService', 'MessagesService', '$uibModal', 'Idle'];
+	public static $inject = ['$rootScope', '$scope', 'AuthenticationService', 'MenuService', 'MessagesService', '$uibModal', 'Idle', '$translate', '$state'];
 	public accountMenu: any;
 	public isCollapsed: boolean;
 	public menu: any;
@@ -24,13 +25,35 @@ class HeaderController implements IController {
 		private MenuService: IMenuService,
 		private MessagesService: IMessagesService,
 		private $uibModal: ui.bootstrap.IModalService,
-		private Idle: idle.IIdleService
+		private Idle: idle.IIdleService,
+		private $translate: ITranslateService,
+		private $state: IState
 	) {
 		this.refreshHeader();
 		this.isCollapsed = false;
 		this.menu = this.MenuService.getMenu('topbar');
 		this.setScopeBindings();
 		this.setupIdleTimeout();
+
+		// Angular-Translate
+		this.$rootScope.$on('$translateChangeSuccess', () => {
+			const lang = $translate.use();
+			$rootScope.lang = lang;
+			document.documentElement.lang = lang;
+		});
+
+		this.$rootScope.goTo = (state) => {
+			$state.go($translate.use() + state);
+		}
+
+		this.$rootScope.changeLanguage = () => {
+			const newLang = ($translate.use() === 'en') ? 'fr' : 'en';
+			const currentState = $state.current.name;
+
+			$translate.use(newLang).then(() => {
+				$state.go(newLang + currentState.slice(2));
+			});
+		}
 	}
 
 	private refreshHeader(): void {
