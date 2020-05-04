@@ -7,6 +7,16 @@ import { ITranslateService } from 'angular-translate';
 class CoreClientRouter {
 	public static $inject = ['$stateProvider', '$urlRouterProvider'];
 
+	private splashState: Ng1StateDeclaration = {
+		url: '/',
+		templateUrl: '/modules/core/client/views/home.client.view.html',
+		controller: 'HomeController',
+		controllerAs: 'vm',
+		ncyBreadcrumb: {
+			label: 'Home'
+		}
+	};
+
 	private homeState: Ng1StateDeclaration = {
 		url: '/en',
 		templateUrl: '/modules/core/client/views/home.client.view.html',
@@ -14,9 +24,6 @@ class CoreClientRouter {
 		controllerAs: 'vm',
 		ncyBreadcrumb: {
 			label: 'Home'
-		},
-		params: {
-			lang: 'en'
 		}
 	};
 
@@ -27,9 +34,6 @@ class CoreClientRouter {
 		controllerAs: 'vm',
 		ncyBreadcrumb: {
 			label: 'Maison'
-		},
-		params: {
-			lang: 'fr'
 		}
 	};
 
@@ -208,6 +212,7 @@ class CoreClientRouter {
 		this.$urlRouterProvider.otherwise(this.urlRouteNotFoundHandler);
 
 		// Set up English core routes
+		this.$stateProvider.state('splash', this.splashState);
 		this.$stateProvider.state('enhome', this.homeState);
 		this.$stateProvider.state('not-found', this.notFoundState);
 		this.$stateProvider.state('bad-request', this.badRequestState);
