@@ -2,7 +2,6 @@
 
 import { Ng1StateDeclaration, StateParams, StateProvider, StateService, UrlRouterProvider } from '@uirouter/angularjs';
 import angular, { auto } from 'angular';
-import { ITranslateService } from 'angular-translate';
 
 class CoreClientRouter {
 	public static $inject = ['$stateProvider', '$urlRouterProvider'];
